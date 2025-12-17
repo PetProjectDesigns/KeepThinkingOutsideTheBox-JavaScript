@@ -1,0 +1,83 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f5; /* Light background */
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.explanation {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* DICE STYLING */
+.dice-face {
+    width: 100px;
+    height: 100px;
+    background-color: #ff4500; /* Bright orange for the die */
+    border: 5px solid #333;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    font-size: 4em; /* Large number for the result */
+    font-weight: bold;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease-out; /* Smooth transformation for the roll animation */
+}
+
+/* Button Styling */
+#roll-button {
+    background-color: #4CAF50; /* Green button */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 0 4px 0 #388E3C; /* 3D effect */
+    transition: all 0.1s;
+}
+
+#roll-button:active {
+    background-color: #388E3C;
+    box-shadow: 0 0 0 #388E3C;
+    transform: translateY(4px); /* Pushed-down effect when clicked */
+}
+
+/* Result Message Styling */
+.message {
+    font-size: 1.1em;
+    font-weight: bold;
+    min-height: 20px; /* To prevent layout shift when message appears */
+    margin-top: 10px;
+}
+
+.message.win {
+    color: #28a745; /* Green for a good result */
+}
+
+.message.lose {
+    color: #dc3545; /* Red for a low result */
+}

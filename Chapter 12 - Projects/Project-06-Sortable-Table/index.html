@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sortable Table Example</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h2 style="text-align: center;">Sortable Table</h2>
+  <table id="sortableTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Name</th>
+        <th onclick="sortTable(1)">Age</th>
+        <th onclick="sortTable(2)">Country</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Alice</td>
+        <td>25</td>
+        <td>USA</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>30</td>
+        <td>Canada</td>
+      </tr>
+      <tr>
+        <td>Charlie</td>
+        <td>20</td>
+        <td>UK</td>
+      </tr>
+      <tr>
+        <td>David</td>
+        <td>35</td>
+        <td>Australia</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>

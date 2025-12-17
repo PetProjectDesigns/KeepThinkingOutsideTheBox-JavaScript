@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding the Structure of a JavaScript Program</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&family=Roboto:wght@400&family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Variables for High Contrast (Light Mode Default) --- */
+        :root {
+            --color-bg-body: #FFFFFF;
+            --color-text: #1A1A1A;
+            --color-accent: #000000;
+            --color-border: #DDDDDD;
+            --color-code-bg: #F5F5F5;
+            --color-highlight: #EEEEEE;
+            --font-family-main: 'Merriweather','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family-code: 'Inconsolata','Consolas', 'Courier New', monospace;
+        }
+
+        /* --- Dark Mode Overrides --- */
+        body.dark-mode {
+            --color-bg-body: #121212;
+            --color-text: #E0E0E0;
+            --color-accent: #FAFAFA;
+            --color-border: #333333;
+            --color-code-bg: #222222;
+            --color-highlight: #333333;
+        }
+
+        /* --- Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg-body);
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-bg-body);
+            padding: 30px;
+        }
+
+        /* --- Header and Toggle --- */
+        header {
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--color-accent);
+        }
+
+        .theme-toggle-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--color-accent);
+            background-color: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.2s;
+            margin-left: 20px;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--color-highlight);
+        }
+
+        /* Dark Mode Button Specifics */
+        body.dark-mode .theme-toggle-btn {
+            border-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        /* --- Content and Typography --- */
+        h2 {
+            font-size: 1.8rem;
+            color: var(--color-accent);
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--color-accent);
+            margin-top: 20px;
+            margin-bottom: 5px;
+            border-left: 5px solid var(--color-accent);
+            padding-left: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* --- Code Presentation --- */
+        .code-block {
+            background-color: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        pre {
+            font-family: var(--font-family-code);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-text);
+            white-space: pre-wrap; /* Wrap long lines */
+        }
+
+        code {
+            font-family: var(--font-family-code);
+            background-color: var(--color-code-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        /* Syntax Highlight Simulation */
+        .comment {
+            opacity: 0.6;
+            font-style: italic;
+        }
+        .keyword {
+            font-weight: bold;
+            color: var(--color-accent); /* Keeps keywords distinct */
+        }
+        .string {
+            color: #C20000; /* Darker red for light mode */
+        }
+        body.dark-mode .string {
+            color: #90EE90; /* Light green for dark mode strings */
+        }
+        .number {
+            font-weight: bold;
+        }
+        
+        /* Box for Explanation/Notes */
+        .explanation-box {
+            padding: 15px;
+            border: 1px dashed var(--color-accent);
+            background-color: var(--color-highlight);
+            border-radius: 6px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        /* Responsive Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid var(--color-border);
+            padding: 10px;
+            text-align: left;
+        }
+        thead {
+            background-color: var(--color-highlight);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+        
+        /* Media Query for Mobile */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .theme-toggle-btn {
+                margin: 10px 0 0 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Understanding the Structure of a JavaScript Program</h1>
+            <button id="theme-toggle" aria-label="Toggle Light/Dark Mode" class="theme-toggle-btn">
+                <span class="icon">☀️</span> <span class="text">Dark Mode</span>
+            </button>
+        </header>
+
+        <section id="introduction">
+            <p>Welcome to your first look at the building blocks of JavaScript! Every program you write is made up of simple, structured pieces. Understanding these pieces—like comments, statements, and data types—is the key to writing clear, functional code.</p>
+        </section>
+
+        <section id="structure">
+            <h2>1. Program Structure: Statements and Comments</h2>
+
+            <h3>Statements (The Instructions)</h3>
+            <p>A JavaScript statement is a complete instruction to the computer. Statements are typically separated by a semicolon (<code>;</code>), which acts like a period at the end of a sentence.</p>
+            <div class="code-block">
+                <pre><span class="keyword">let</span> message = <span class="string">'Hello, World!'</span>;  <span class="comment">// Statement 1: Declares a variable</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(message);             <span class="comment">// Statement 2: Prints the variable's value</span></pre>
+            </div>
+
+            <h3>Comments (The Notes)</h3>
+            <p>Comments are text the computer ignores, used only by humans to explain what the code does. This is vital for organization and clarity, especially for ADHD learners who benefit from breaking down complex logic.</p>
+            
+            <div class="code-block">
+                <pre><span class="comment">// This is a single-line comment</span>
+
+<span class="comment">// Print Hello, World! to the console</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(<span class="string">'Hello, World!'</span>);</pre>
+            </div>
+            <div class="explanation-box">
+                <b>Try It:</b> Open your browser's Developer Console (usually F12) and type <code><b>console.log('Hello, World!');</b></code>. This is the first step of debugging!
+            </div>
+        </section>
+
+        <section id="variables">
+            <h2>2. Variables and Constants</h2>
+            <p>Variables are like labelled boxes where you can store information (data). In JavaScript, you use keywords like <code>let</code> and <code>const</code> to create them.</p>
+
+            <h3>Variable Declaration (<code>let</code>)</h3>
+            <p>Use <code>let</code> for values that you expect to change later in the program.</p>
+            <div class="code-block">
+                <pre><span class="keyword">let</span> message = <span class="string">'Hello, World!'</span>;
+<span class="comment">// Later in the program, you can change it:</span>
+message = <span class="string">'Goodbye, World!'</span>;</pre>
+            </div>
+
+            <h3>Constants (<code>const</code>)</h3>
+            <p>Use <code>const</code> for values that should *never* change. This makes your code safer and easier to understand.</p>
+            <div class="code-block">
+                <pre><span class="keyword">let</span> age = <span class="number">25</span>;
+<span class="keyword">const</span> pi = <span class="number">3.14</span>; <span class="comment">// Pi will always be 3.14 (a constant)</span></pre>
+            </div>
+        </section>
+
+        <section id="data-types">
+            <h2>3. JavaScript Data Types</h2>
+            <p>Every piece of data in JavaScript has a type. Understanding these types is crucial for making sure your program handles information correctly.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Code Snippet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Number</strong></td>
+                        <td>Any numerical value (integers or decimals).</td>
+                        <td><div class="code-block"><pre><span class="keyword">let</span> score = <span class="number">100</span>;</pre></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>String</strong></td>
+                        <td>A sequence of characters, always enclosed in quotes (<code>''</code> or <code>""</code>).</td>
+                        <td><div class="code-block"><pre><span class="keyword">let</span> greeting = <span class="string">'Hello, World!'</span>;</pre></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Boolean</strong></td>
+                        <td>A logical value: either <code>true</code> or <code>false</code>. Used for decision-making.</td>
+                        <td><div class="code-block"><pre><span class="keyword">let</span> isStudent = <span class="keyword">true</span>;</pre></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Null</strong></td>
+                        <td>Represents the intentional absence of any object value. (You set it to <code>null</code>).</td>
+                        <td><div class="code-block"><pre><span class="keyword">let</span> emptyValue = <span class="keyword">null</span>;</pre></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Undefined</strong></td>
+                        <td>A variable that has been declared but has not been assigned a value.</td>
+                        <td><div class="code-block"><pre><span class="keyword">let</span> notAssigned;</pre></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Object</strong></td>
+                        <td>A complex data type used to store collections of data and more complex entities (like a real-world object).</td>
+                        <td><div class="code-block"><pre><span class="keyword">let</span> person = {
+ <span class="string">name</span>: <span class="string">'John'</span>,
+ <span class="string">age</span>: <span class="number">30</span>
+};</pre></div></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="explanation-box">
+                <b>Concept Tip (Object):</b> Think of an Object as a filing cabinet. The <code>person</code> is the cabinet, and <code>name</code> and <code>age</code> are the labels on the drawers, each holding a specific piece of information.
+            </div>
+        </section>
+        
+        <footer>
+            <p>Keep Thinking Outside The Box: A Beginners Guide To JavaScript For ADHD Brains</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('theme');
+
+            // Function to update the button icon and text
+            function updateToggleText(theme) {
+                const isDark = theme === 'dark-mode';
+                toggleButton.querySelector('.icon').textContent = isDark ? '🌙' : '☀️';
+                toggleButton.querySelector('.text').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            }
+
+            // 1. Initial Load: Apply saved theme or default to system preference
+            if (currentTheme) {
+                body.classList.add(currentTheme);
+                updateToggleText(currentTheme);
+            } else {
+                // Check system preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    body.classList.add('dark-mode');
+                    updateToggleText('dark-mode');
+                } else {
+                    updateToggleText('light-mode');
+                }
+            }
+
+            // 2. Toggle Handler
+            toggleButton.addEventListener('click', () => {
+                const isCurrentlyDark = body.classList.contains('dark-mode');
+                
+                if (isCurrentlyDark) {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light-mode');
+                    updateToggleText('light-mode');
+                } else {
+                    body.classList.remove('light-mode'); // Clean up explicit light mode class
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                    updateToggleText('dark-mode');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

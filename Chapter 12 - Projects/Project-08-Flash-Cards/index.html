@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner Flashcard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="flashcard-container" onclick="flipCard(this)">
+        <div class="flashcard">
+            
+            <div class="flashcard-face flashcard-front">
+                <h1>The Front Face</h1>
+                <p>Click me to see the answer!</p>
+                <p class="hint">(Or hover if we used the :hover method)</p>
+            </div>
+            
+            <div class="flashcard-face flashcard-back">
+                <h2>The Back Face (Answer)</h2>
+                <p>This is the hidden information.</p>
+                <p>CSS **`transform: rotateY(180deg);`** does the initial rotation.</p>
+                <p>The parent container gets the **`.flip`** class from JavaScript.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

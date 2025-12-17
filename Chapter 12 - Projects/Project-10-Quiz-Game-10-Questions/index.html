@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Fundamentals Quiz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>JavaScript Fundamentals Quiz</h1>
+    <p>Test your knowledge of core JavaScript concepts!</p>
+  </header>
+
+  <main class="quiz-container">
+    <form id="quizForm">
+      <fieldset class="question">
+        <legend>1. Which keyword is used to declare a variable in modern JavaScript?</legend>
+        <label><input type="radio" name="q1" value="a"> var</label>
+        <label><input type="radio" name="q1" value="b"> let</label>
+        <label><input type="radio" name="q1" value="c"> const</label>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend>2. What does <code>===</code> check in JavaScript?</legend>
+        <label><input type="radio" name="q2" value="a"> Equality of values only</label>
+        <label><input type="radio" name="q2" value="b"> Equality of values and types</label>
+        <label><input type="radio" name="q2" value="c"> Inequality of values</label>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend>3. Which method is used to add an element to the end of an array?</legend>
+        <label><input type="radio" name="q3" value="a"> push()</label>
+        <label><input type="radio" name="q3" value="b"> pop()</label>
+        <label><input type="radio" name="q3" value="c"> shift()</label>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend>4. What is the output of <code>typeof null</code>?</legend>
+        <label><input type="radio" name="q4" value="a"> "null"</label>
+        <label><input type="radio" name="q4" value="b"> "object"</label>
+        <label><input type="radio" name="q4" value="c"> "undefined"</label>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend>5. Which keyword is used to define a function?</legend>
+        <label><input type="radio" name="q5" value="a"> func</label>
+        <label><input type="radio" name="q5" value="b"> function</label>
+        <label><input type="radio" name="q5" value="c"> def</label>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend>6. What does <code>NaN</code> stand for in JavaScript?</legend>
+        <label><input type="radio" name="q6" value="a"> Not a Null</label>
+        <label><input type="radio" name="q6" value="b"> Not a Number</label>
+        <label><input type="radio" name="q6" value="c"> No assigned Name</label>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend>7. Which object is the global scope in browsers?</legend>
+        <label><input type="radio" name="q7" value="a"> document</label>
+        <label><input type="radio" name="q7" value="b"> window</label>
+        <label><input type="radio" name="q7" value="c"> global</label>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend>8. Which loop is best for iterating over arrays?</legend>
+        <label><input type="radio" name="q8" value="a"> for loop</label>
+        <label><input type="radio" name="q8" value="b"> while loop</label>
+        <label><input type="radio" name="q8" value="c"> do...while loop</label>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend>9. What does <code>JSON.stringify()</code> do?</legend>
+        <label><input type="radio" name="q9" value="a"> Converts a JSON string into an object</label>
+        <label><input type="radio" name="q9" value="b"> Converts a JavaScript object into a JSON string</label>
+        <label><input type="radio" name="q9" value="c"> Parses numbers into strings</label>
+      </fieldset>
+
+      <fieldset class="question">
+        <legend>10. Which statement is used to handle errors in JavaScript?</legend>
+        <label><input type="radio" name="q10" value="a"> if...else</label>
+        <label><input type="radio" name="q10" value="b"> try...catch</label>
+        <label><input type="radio" name="q10" value="c"> switch</label>
+      </fieldset>
+
+      <button type="submit" id="submitBtn">Submit Quiz</button>
+    </form>
+
+    <div id="results" class="results-container"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

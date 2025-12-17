@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4: Creating a JavaScript Alert Box</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&family=Roboto:wght@400&family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS Variables for High Contrast (Light Mode Default) --- */
+        :root {
+            --color-bg-body: #FFFFFF;
+            --color-text: #1A1A1A;
+            --color-accent: #000000;
+            --color-border: #DDDDDD;
+            --color-code-bg: #F5F5F5;
+            --color-highlight: #EEEEEE;
+            --font-family-main: 'Merriweather','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family-code: 'Inconsolata','Consolas', 'Courier New', monospace;
+        }
+
+        /* --- Dark Mode Overrides --- */
+        body.dark-mode {
+            --color-bg-body: #121212;
+            --color-text: #E0E0E0;
+            --color-accent: #FAFAFA;
+            --color-border: #333333;
+            --color-code-bg: #222222;
+            --color-highlight: #333333;
+        }
+
+        /* --- Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg-body);
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-bg-body);
+            padding: 30px;
+        }
+
+        /* --- Header and Toggle --- */
+        header {
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--color-accent);
+        }
+
+        .theme-toggle-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--color-accent);
+            background-color: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.2s;
+            margin-left: 20px;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--color-highlight);
+        }
+
+        body.dark-mode .theme-toggle-btn {
+            border-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        /* --- Content and Typography --- */
+        h2 {
+            font-size: 1.8rem;
+            color: var(--color-accent);
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+        
+        /* --- Interactive Section --- */
+        .interactive-section {
+            border: 2px solid var(--color-accent);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: center;
+            background-color: var(--color-highlight);
+        }
+
+        .run-button {
+            padding: 12px 25px;
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: opacity 0.2s;
+        }
+        
+        .run-button:hover {
+            opacity: 0.85;
+        }
+
+        /* --- Code Presentation --- */
+        .code-block {
+            background-color: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        pre {
+            font-family: var(--font-family-code);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-text);
+            white-space: pre-wrap;
+        }
+
+        code {
+            font-family: var(--font-family-code);
+            background-color: var(--color-code-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .keyword {
+            font-weight: bold;
+            color: var(--color-accent);
+        }
+        .string {
+            color: #C20000;
+        }
+        body.dark-mode .string {
+            color: #90EE90;
+        }
+
+        .explanation-box {
+            padding: 15px;
+            border-left: 5px solid var(--color-accent);
+            background-color: var(--color-highlight);
+            border-radius: 0 6px 6px 0;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+        
+        /* Media Query for Mobile */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Creating a JavaScript Alert Box</h1>
+            <button id="theme-toggle" aria-label="Toggle Light/Dark Mode" class="theme-toggle-btn">
+                <span class="icon">☀️</span> <span class="text">Dark Mode</span>
+            </button>
+        </header>
+
+        <section id="introduction">
+            <p>The <b>Alert Box</b> is the simplest way for a JavaScript program to communicate with the user. It is a popup window that displays a message and waits for the user to click the "OK" button before continuing.</p>
+            <p>While modern websites rarely use <code>alert()</code> (because it stops the user from interacting with the page), it is an essential first step in understanding browser communication.</p>
+        </section>
+
+        <section id="syntax">
+            <h2>The `alert()` Syntax</h2>
+            <p>The function is very straightforward. You simply pass the message you want to display inside the parentheses.</p>
+            
+            <div class="code-block">
+                <pre><span class="keyword">alert</span>(<span class="string">'Your message goes here!'</span>);</pre>
+            </div>
+            
+            <div class="explanation-box">
+                <b>Note on Syntax:</b> The word <code>alert</code> is the function name. The text inside the single quotes (<code>'...'</code>) is a <b>String</b> (the message). The semicolon (<code>;</code>) ends the statement.
+            </div>
+        </section>
+
+        <section id="demonstration">
+            <h2>Live Demonstration</h2>
+            <p>Click the button below to see the JavaScript alert box in action. This is done using an <b>event handler</b>, where the button "listens" for a click and then executes the <code>alert()</code> function.</p>
+
+            <div class="interactive-section">
+                <p>Click me to trigger the alert:</p>
+                <button onclick="showMessage()" class="run-button">
+                    Show My First Alert Box
+                </button>
+            </div>
+
+            <h3>The Code Behind the Button</h3>
+            <p>The function below is executed when you click the button:</p>
+            
+            <div class="code-block">
+                <pre><span class="keyword">function</span> <span class="keyword">showMessage</span>() {
+    <span class="keyword">alert</span>(<span class="string">'Success! You have triggered your first JS event.'</span>);
+    <span class="comment">// The browser will now pause until you click "OK".</span>
+}</pre>
+            </div>
+        </section>
+        
+        <section id="what-it-does">
+            <h2>Key Takeaways</h2>
+            <ul>
+                <li>The <b>alert()</b> function is used to display a message in a modal popup.</li>
+                <li>It pauses the execution of the rest of the JavaScript code until the user clicks OK.</li>
+                <li>The message must be passed as a <b>String</b> (text inside quotes).</li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>Keep Thinking Outside The Box: A Beginners Guide To JavaScript For ADHD Brains</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Function called by the button (Demonstration)
+        function showMessage() {
+            alert('Success! You have triggered your first JS event.');
+        }
+
+        // Theme Toggle Logic (From previous examples)
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('theme');
+
+            function updateToggleText(theme) {
+                const isDark = theme === 'dark-mode';
+                toggleButton.querySelector('.icon').textContent = isDark ? '🌙' : '☀️';
+                toggleButton.querySelector('.text').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            }
+
+            if (currentTheme) {
+                body.classList.add(currentTheme);
+                updateToggleText(currentTheme);
+            } else {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    body.classList.add('dark-mode');
+                    updateToggleText('dark-mode');
+                } else {
+                    updateToggleText('light-mode');
+                }
+            }
+
+            toggleButton.addEventListener('click', () => {
+                const isCurrentlyDark = body.classList.contains('dark-mode');
+                
+                if (isCurrentlyDark) {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light-mode');
+                    updateToggleText('light-mode');
+                } else {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                    updateToggleText('dark-mode');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

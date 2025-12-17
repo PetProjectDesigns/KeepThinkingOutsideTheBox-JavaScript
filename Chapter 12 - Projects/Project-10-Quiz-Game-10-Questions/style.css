@@ -1,0 +1,111 @@
+/* Note for Beginners: * selects all elements, setting a base font and box model. */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+}
+
+/* Note for Beginners: Styles for the main container holding the quiz. */
+.quiz-container {
+    max-width: 800px;
+    margin: auto;
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Note for Beginners: Styling the <fieldset> element for each question. */
+.question {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    /* Note: display: flex and flex-direction: column is used to stack the labels nicely. */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Note for Beginners: Styling the <legend> element (the question text). */
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007bff;
+    padding: 0 10px;
+    margin-left: -10px; /* Align legend slightly to the left over the border */
+}
+
+/* Note for Beginners: Styling the <label> elements (the answer choices). */
+label {
+    margin: 8px 0;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+label:hover {
+    background-color: #e9ecef;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Note for Beginners: Styling the submit button. */
+#submitBtn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+#submitBtn:hover {
+    background-color: #218838;
+}
+
+/* Note for Beginners: Styling the results area. */
+.results-container {
+    margin-top: 30px;
+    padding: 15px;
+    border: 2px dashed #007bff;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    display: none; /* Will be shown by JavaScript after submission */
+}
+
+.correct {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.incorrect {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}

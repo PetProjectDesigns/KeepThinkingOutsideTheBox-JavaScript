@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: JavaScript Prompt Box (Getting User Input)</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&family=Roboto:wght@400&family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Variables for High Contrast (Light Mode Default) --- */
+        :root {
+            --color-bg-body: #FFFFFF;
+            --color-text: #1A1A1A;
+            --color-accent: #000000;
+            --color-border: #DDDDDD;
+            --color-code-bg: #F5F5F5;
+            --color-highlight: #EEEEEE;
+            --font-family-main: 'Merriweather','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family-code: 'Inconsolata','Consolas', 'Courier New', monospace;
+        }
+
+        /* --- Dark Mode Overrides --- */
+        body.dark-mode {
+            --color-bg-body: #121212;
+            --color-text: #E0E0E0;
+            --color-accent: #FAFAFA;
+            --color-border: #333333;
+            --color-code-bg: #222222;
+            --color-highlight: #333333;
+        }
+
+        /* --- Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg-body);
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-bg-body);
+            padding: 30px;
+        }
+
+        /* --- Header and Toggle --- */
+        header {
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--color-accent);
+        }
+
+        .theme-toggle-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--color-accent);
+            background-color: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.2s;
+            margin-left: 20px;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--color-highlight);
+        }
+
+        body.dark-mode .theme-toggle-btn {
+            border-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        /* --- Content and Typography --- */
+        h2 {
+            font-size: 1.8rem;
+            color: var(--color-accent);
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+        
+        /* --- Interactive Section --- */
+        .interactive-section {
+            border: 2px dashed var(--color-accent);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: center;
+            background-color: var(--color-highlight);
+        }
+
+        .run-button {
+            padding: 12px 25px;
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: opacity 0.2s;
+        }
+        
+        .run-button:hover {
+            opacity: 0.85;
+        }
+
+        /* --- Code Presentation --- */
+        .code-block {
+            background-color: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        pre {
+            font-family: var(--font-family-code);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-text);
+            white-space: pre-wrap;
+        }
+
+        code {
+            font-family: var(--font-family-code);
+            background-color: var(--color-code-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .keyword {
+            font-weight: bold;
+            color: var(--color-accent);
+        }
+        .string {
+            color: #C20000;
+        }
+        body.dark-mode .string {
+            color: #90EE90;
+        }
+        .variable {
+            font-style: italic;
+        }
+
+        .explanation-box {
+            padding: 15px;
+            border-left: 5px solid var(--color-accent);
+            background-color: var(--color-highlight);
+            border-radius: 0 6px 6px 0;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+        
+        /* Media Query for Mobile */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Creating a JavaScript Prompt Box</h1>
+            <button id="theme-toggle" aria-label="Toggle Light/Dark Mode" class="theme-toggle-btn">
+                <span class="icon">☀️</span> <span class="text">Dark Mode</span>
+            </button>
+        </header>
+
+        <section id="introduction">
+            <p>The <b>Prompt Box</b> is a key way to make your JavaScript program interactive. Unlike the simple <b>alert()</b>, the prompt box allows the user to enter text, which your program can then store and use. This is the first step toward handling user input!</p>
+        </section>
+
+        <section id="syntax">
+            <h2>The <b>prompt()</b> and <b>alert()</b> combination</h2>
+            <p>The most important concept here is <b>Variable Assignment</b>. Whatever the user types into the prompt box is immediately saved into a variable (in this case, <b>userName</b>).</p>
+            
+            <div class="code-block">
+                <pre><span class="keyword">let</span> <span class="variable">userName</span> = <span class="keyword">prompt</span>(<span class="string">'What is your name?'</span>);
+<span class="keyword">alert</span>(<span class="string">'Hello, '</span> + <span class="variable">userName</span> + <span class="string">'!'</span>);</pre>
+            </div>
+            
+            <div class="explanation-box">
+                <b>How it Works:</b> The program first asks the question using <b>prompt()</b>. Once you hit OK, your answer is saved in the `userName` variable. The second line uses <b>String Concatenation</b> (<b>+</b>) to combine the fixed text (<b>"Hello, "</b>) with your input and display it in an alert.
+            </div>
+        </section>
+
+        <section id="demonstration">
+            <h2>Live Demonstration</h2>
+            <p>Click the button below. First, a prompt will appear asking for your name. Type your name, hit OK, and the program will respond with a personalized greeting.</p>
+
+            <div class="interactive-section">
+                <p>Click me to run the personalized prompt:</p>
+                <button onclick="runPromptExample()" class="run-button">
+                    Run Prompt & Alert Sequence
+                </button>
+            </div>
+
+            <h3>The Code Behind the Button</h3>
+            <p>This is the exact code that runs when you click the button:</p>
+            
+            <div class="code-block">
+                <pre><span class="keyword">function</span> <span class="keyword">runPromptExample</span>() {
+    <span class="keyword">let</span> <span class="variable">userName</span> = <span class="keyword">prompt</span>(<span class="string">'What is your name?'</span>);
+    
+    <span class="comment">// Check if the user entered anything (or clicked Cancel)</span>
+    <span class="keyword">if</span> (<span class="variable">userName</span>) {
+        <span class="keyword">alert</span>(<span class="string">'Hello, '</span> + <span class="variable">userName</span> + <span class="string">'! Welcome to the world of interactive JavaScript.'</span>);
+    } <span class="keyword">else</span> {
+        <span class="keyword">alert</span>(<span class="string">'No problem! You can try again anytime.'</span>);
+    }
+}</pre>
+            </div>
+        </section>
+        
+        <section id="key-takeaways">
+            <h2>Key Takeaways</h2>
+            <ul>
+                <li>The <b>prompt()</b> function gets user input and returns it as a <b>String</b>.</li>
+                <li>The return value must be stored in a variable (<b>let userName = ...</b>).</li>
+                <li>If the user clicks "Cancel" or closes the prompt, the variable will be set to <b>null</b> (or an empty string in some browsers).</li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>Keep Thinking Outside The Box: A Beginners Guide To JavaScript For ADHD Brains</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Function called by the button (Demonstration)
+        function runPromptExample() {
+            // The core requested code snippet
+            let userName = prompt('What is your name?');
+            
+            // Added check for robustness (good practice)
+            if (userName) {
+                alert('Hello, ' + userName + '! Welcome to the world of interactive JavaScript.');
+            } else {
+                 alert('No problem! You can try again anytime.');
+            }
+        }
+
+        // Theme Toggle Logic 
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('theme');
+
+            function updateToggleText(theme) {
+                const isDark = theme === 'dark-mode';
+                toggleButton.querySelector('.icon').textContent = isDark ? '🌙' : '☀️';
+                toggleButton.querySelector('.text').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            }
+
+            if (currentTheme) {
+                body.classList.add(currentTheme);
+                updateToggleText(currentTheme);
+            } else {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    body.classList.add('dark-mode');
+                    updateToggleText('dark-mode');
+                } else {
+                    updateToggleText('light-mode');
+                }
+            }
+
+            toggleButton.addEventListener('click', () => {
+                const isCurrentlyDark = body.classList.contains('dark-mode');
+                
+                if (isCurrentlyDark) {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light-mode');
+                    updateToggleText('light-mode');
+                } else {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                    updateToggleText('dark-mode');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

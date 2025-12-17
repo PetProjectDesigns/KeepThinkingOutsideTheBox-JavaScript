@@ -1,0 +1,22 @@
+table {
+  width: 50%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  /* Indicates that the header is clickable */
+  cursor: pointer;
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  /* Alternate row coloring for better readability */
+  background-color: #f9f9f9;
+}
