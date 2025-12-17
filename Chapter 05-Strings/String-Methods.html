@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering JavaScript String Methods</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&family=Roboto:wght@400&family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Variables for High Contrast --- */
+        :root {
+            --color-bg-body: #FFFFFF;
+            --color-text: #1A1A1A;
+            --color-accent: #000000;
+            --color-border: #DDDDDD;
+            --color-code-bg: #F5F5F5;
+            --color-highlight: #EEEEEE;
+            --font-family-main: 'Merriweather','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family-code: 'Inconsolata','Consolas', 'Courier New', monospace;
+        }
+
+        body.dark-mode {
+            --color-bg-body: #121212;
+            --color-text: #E0E0E0;
+            --color-accent: #FAFAFA;
+            --color-border: #333333;
+            --color-code-bg: #222222;
+            --color-highlight: #333333;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg-body);
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; background: var(--color-bg-body); padding: 30px; }
+
+        header {
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 { font-size: 2.2rem; color: var(--color-accent); }
+
+        .theme-toggle-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--color-accent);
+            background-color: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        h2 { font-size: 1.8rem; color: var(--color-accent); margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid var(--color-border); padding-bottom: 5px; }
+        
+        p { margin-bottom: 15px; }
+
+        /* --- Table Styles --- */
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            border: 1px solid var(--color-border);
+        }
+
+        .content-table thead tr { background-color: var(--color-accent); color: var(--color-bg-body); font-weight: bold; }
+        .content-table th, .content-table td { padding: 12px 15px; border: 1px solid var(--color-border); }
+        .content-table tbody tr:nth-of-type(even) { background-color: var(--color-code-bg); }
+
+        /* --- Interactive Section --- */
+        .interactive-section {
+            border: 2px dashed var(--color-accent);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            background-color: var(--color-highlight);
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            font-family: var(--font-family-main);
+        }
+
+        .run-button {
+            padding: 10px 20px;
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #result-output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid var(--color-accent);
+            background-color: var(--color-bg-body);
+            font-family: var(--font-family-code);
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        .code-block {
+            background-color: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        pre { font-family: var(--font-family-code); font-size: 0.95rem; }
+        .keyword { font-weight: bold; color: #007acc; }
+        .string { color: #C20000; }
+        body.dark-mode .string { color: #90EE90; }
+
+        .explanation-box {
+            padding: 15px;
+            border-left: 5px solid var(--color-accent);
+            background-color: var(--color-highlight);
+            margin-top: 15px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JS String Methods</h1>
+            <button id="theme-toggle" class="theme-toggle-btn">
+                <span class="icon">☀️</span> <span class="text">Dark Mode</span>
+            </button>
+        </header>
+
+        <section>
+            <h2>Introduction</h2>
+            <p>Strings in JavaScript are more than just text; they are objects with built-in <strong>methods</strong> that allow you to transform, slice, and analyze them easily.</p>
+            <div class="explanation-box">
+                <strong>Note:</strong> Strings are <em>immutable</em>. This means these methods don't change the original string; they return a brand new one.
+            </div>
+        </section>
+
+        <section>
+            <h2>Interactive Lab</h2>
+            <p>Type a sentence below and see how different methods transform it instantly.</p>
+            <div class="interactive-section">
+                <input type="text" id="user-input" placeholder="Enter text here (e.g., hello world)">
+                <br>
+                <button onclick="runStringLab()" class="run-button">Process String</button>
+                <div id="result-output">Results will appear here...</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Method Comparison Table</h2>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Purpose</th>
+                        <th>Example Output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>.toUpperCase()</b></td>
+                        <td>Converts all letters to uppercase.</td>
+                        <td>"HELLO"</td>
+                    </tr>
+                    <tr>
+                        <td><b>.toLowerCase()</b></td>
+                        <td>Converts all letters to lowercase.</td>
+                        <td>"hello"</td>
+                    </tr>
+                    <tr>
+                        <td><b>.slice(start, end)</b></td>
+                        <td>Extracts a part of a string.</td>
+                        <td>"ell" (from index 1 to 4)</td>
+                    </tr>
+                    <tr>
+                        <td><b>.replace(x, y)</b></td>
+                        <td>Replaces text with new text.</td>
+                        <td>Swaps words or characters.</td>
+                    </tr>
+                    <tr>
+                        <td><b>.split(" ")</b></td>
+                        <td>Divides string into an array.</td>
+                        <td>["Hello", "World"]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Code Demonstration: Capitalization</h2>
+            <p>To capitalize the first letter, we combine <b>.charAt()</b>, <b>.toUpperCase()</b>, and </b>.slice()</b>.</p>
+            <div class="code-block">
+                <pre>
+<span class="keyword">let</span> str = <span class="string">"javascript"</span>;
+<span class="comment">// 1. Get first char and upper it</span>
+<span class="comment">// 2. Add the rest of the string starting from index 1</span>
+<span class="keyword">let</span> capitalized = str.charAt(<span class="string">0</span>).toUpperCase() + str.slice(<span class="string">1</span>);
+<span class="keyword">console</span>.log(capitalized); <span class="comment">// "Javascript"</span>
+                </pre>
+            </div>
+        </section>
+
+        <footer>
+            <p>Keep Thinking Outside The Box: A Beginners Guide To JavaScript For ADHD Brains</p>
+        </footer>
+    </div>
+
+    <script>
+        function runStringLab() {
+            const str = document.getElementById('user-input').value;
+            const output = document.getElementById('result-output');
+
+            if (!str) {
+                output.innerText = "Please enter some text first!";
+                return;
+            }
+
+            // Logic for the various methods
+            const upper = str.toUpperCase();
+            const lower = str.toLowerCase();
+            const capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+            const replaced = str.replace(/[aeiou]/gi, "★"); // Replaces vowels for demo
+            const sliced = str.length > 5 ? str.slice(0, 5) + "..." : str;
+            const splitArr = str.split(" ");
+
+            output.innerHTML = `
+<strong>Original:</strong> "${str}"
+<strong>.toUpperCase():</strong> ${upper}
+<strong>.toLowerCase():</strong> ${lower}
+<strong>Capitalized (charAt + slice):</strong> ${capitalized}
+<strong>.replace() (Vowels to ★):</strong> ${replaced}
+<strong>.slice(0, 5):</strong> ${sliced}
+<strong>.split(" "):</strong> [${splitArr.join(', ')}]
+            `;
+        }
+
+        // Theme Toggle Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('theme-toggle');
+            btn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                btn.querySelector('.icon').textContent = isDark ? '🌙' : '☀️';
+                btn.querySelector('.text').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Interpolation with Template Literals</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&family=Roboto:wght@400&family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+   
+    <style>
+        /* --- CSS Variables for High Contrast (Light Mode Default) --- */
+        :root {
+            --color-bg-body: #FFFFFF;
+            --color-text: #1A1A1A;
+            --color-accent: #000000;
+            --color-border: #DDDDDD;
+            --color-code-bg: #F5F5F5;
+            --color-highlight: #EEEEEE;
+            --font-family-main: 'Merriweather','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family-code: 'Inconsolata','Consolas', 'Courier New', monospace;
+        }
+
+        /* --- Dark Mode Overrides --- */
+        body.dark-mode {
+            --color-bg-body: #121212;
+            --color-text: #E0E0E0;
+            --color-accent: #FAFAFA;
+            --color-border: #333333;
+            --color-code-bg: #222222;
+            --color-highlight: #333333;
+        }
+
+        /* --- Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg-body);
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-bg-body);
+            padding: 30px;
+        }
+
+        /* --- Header and Toggle --- */
+        header {
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--color-accent);
+        }
+
+        .theme-toggle-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--color-accent);
+            background-color: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.2s;
+            margin-left: 20px;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--color-highlight);
+        }
+
+        /* --- Content and Typography --- */
+        h2 {
+            font-size: 1.8rem;
+            color: var(--color-accent);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+             font-size: 1.4rem;
+             color: var(--color-accent);
+             margin-top: 25px;
+             margin-bottom: 10px;
+             border-left: 5px solid var(--color-accent);
+             padding-left: 10px;
+         }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* --- Table Styles --- */
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            text-align: left;
+            border: 1px solid var(--color-border);
+        }
+
+        .content-table thead tr {
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .content-table th,
+        .content-table td {
+            padding: 12px 15px;
+            border: 1px solid var(--color-border);
+        }
+
+        .content-table tbody tr:nth-of-type(even) {
+            background-color: var(--color-code-bg);
+        }
+
+        /* --- Interactive Section --- */
+        .interactive-section {
+            border: 2px dashed var(--color-accent);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: center;
+            background-color: var(--color-highlight);
+        }
+
+        .run-button {
+            padding: 10px 20px;
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: opacity 0.2s;
+            margin-top: 10px;
+        }
+        
+        #result-output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid var(--color-accent);
+            background-color: var(--color-bg-body);
+            font-size: 1.1rem;
+            min-height: 40px;
+            text-align: center;
+            white-space: pre-wrap;
+            font-family: var(--font-family-main);
+        }
+
+        /* --- Code Presentation --- */
+        .code-block {
+            background-color: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        pre {
+            font-family: var(--font-family-code);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-text);
+            text-align: left;
+        }
+
+        .keyword { font-weight: bold; color: var(--color-accent); }
+        .string { color: #C20000; }
+        body.dark-mode .string { color: #90EE90; }
+        .comment { opacity: 0.6; font-style: italic; }
+
+        .explanation-box {
+            padding: 15px;
+            border-left: 5px solid var(--color-accent);
+            background-color: var(--color-highlight);
+            border-radius: 0 6px 6px 0;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Inserting Values into Strings</h1>
+            <button id="theme-toggle" aria-label="Toggle Light/Dark Mode" class="theme-toggle-btn">
+                <span class="icon">☀️</span> <span class="text">Dark Mode</span>
+            </button>
+        </header>
+
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>In JavaScript, the modern way to insert values into a string is called <strong>Template Interpolation</strong>.</p>
+            <div class="explanation-box">
+                <strong>Key Concept:</strong> You use backticks (<b>``</b>) instead of single or double quotes, and wrap your variables in <b>${ }</b>.
+            </div>
+        </section>
+
+        <section id="example-code">
+            <h2>Code Demonstration</h2>
+            <p>Below is how we use variables inside a single string without needing multiple plus (<b>+</b>) signs.</p>
+            
+            <div class="code-block">
+                <pre>
+<span class="keyword">const</span> name = <span class="string">'Jordan'</span>;
+<span class="keyword">const</span> age = <span class="string">22</span>;
+<span class="keyword">const</span> hobby = <span class="string">'painting'</span>;
+
+<span class="comment">// The ${} syntax injects the variable value directly into the string</span>
+<span class="keyword">const</span> message = <span class="string">`Hello ${name}, you are ${age} and like ${hobby}!`</span>;
+                </pre>
+            </div>
+        </section>
+
+        <section id="live-demo">
+            <h2>Live Demonstration</h2>
+            <p>Click the button below to provide your own details and see interpolation in action!</p>
+
+            <div class="interactive-section">
+                <button onclick="runConceptDemo()" class="run-button">
+                    Try it Now
+                </button>
+                
+                <div id="result-output">
+                    Waiting for input...
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison-table">
+            <h2>Comparison Table</h2>
+            <p>Notice how much cleaner the Template Literal syntax is compared to old-school concatenation.</p>
+            
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>Definition</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Concatenation</strong></td>
+                        <td>Joining strings with the <code>+</code> operator.</td>
+                        <td><code>"Hi " + name + "!"</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interpolation</strong></td>
+                        <td>Inserting values directly with <code>${}</code>.</td>
+                        <td><code>`Hi ${name}!`</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="key-takeaways">
+            <h2>Key Takeaways</h2>
+            <ul>
+                <li>Use <b>backticks</b> (<b>``</b>) to define the string.</li>
+                <li>Wrap your variables or expressions in <b>${}</b>.</li>
+                <li>This method is much easier to read and prevents errors with spaces.</li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>Keep Thinking Outside The Box: A Beginners Guide To JavaScript For ADHD Brains</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Custom Logic for User Greeting
+        function runConceptDemo() {
+            const name = prompt("Enter your name:");
+            const age = prompt("Enter your age:");
+            const hobby = prompt("Enter your favorite hobby:");
+
+            if (name && age && hobby) {
+                // Using Template Literals to combine the data
+                const output = `Hello ${name}! It is amazing that you are ${age} years old and enjoy ${hobby}.`;
+                document.getElementById('result-output').innerText = output;
+            } else {
+                document.getElementById('result-output').innerText = "Please fill in all prompts!";
+            }
+        }
+
+        // --- Theme Toggle Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('theme');
+
+            function updateToggleText(theme) {
+                const isDark = theme === 'dark-mode';
+                toggleButton.querySelector('.icon').textContent = isDark ? '🌙' : '☀️';
+                toggleButton.querySelector('.text').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            }
+
+            if (currentTheme) {
+                body.classList.add(currentTheme);
+                updateToggleText(currentTheme);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                body.classList.add('dark-mode');
+                updateToggleText('dark-mode');
+            }
+
+            toggleButton.addEventListener('click', () => {
+                const isCurrentlyDark = body.classList.contains('dark-mode');
+                const nextTheme = isCurrentlyDark ? 'light-mode' : 'dark-mode';
+                body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', nextTheme);
+                updateToggleText(nextTheme);
+            });
+            
+            document.getElementById('result-output').innerText = 'Ready to run the concept demo.';
+        });
+    </script>
+</body>
+</html>

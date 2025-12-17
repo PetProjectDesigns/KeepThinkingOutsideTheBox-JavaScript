@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declaring and Initializing Strings</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&family=Roboto:wght@400&family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+   
+    <style>
+        /* --- CSS Variables for High Contrast (Light Mode Default) --- */
+        :root {
+            --color-bg-body: #FFFFFF;
+            --color-text: #1A1A1A;
+            --color-accent: #000000;
+            --color-border: #DDDDDD;
+            --color-code-bg: #F5F5F5;
+            --color-highlight: #EEEEEE;
+            --font-family-main: 'Merriweather','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family-code: 'Inconsolata','Consolas', 'Courier New', monospace;
+        }
+
+        /* --- Dark Mode Overrides --- */
+        body.dark-mode {
+            --color-bg-body: #121212;
+            --color-text: #E0E0E0;
+            --color-accent: #FAFAFA;
+            --color-border: #333333;
+            --color-code-bg: #222222;
+            --color-highlight: #333333;
+        }
+
+        /* --- Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg-body);
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-bg-body);
+            padding: 30px;
+        }
+
+        /* --- Header and Toggle --- */
+        header {
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--color-accent);
+        }
+
+        .theme-toggle-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--color-accent);
+            background-color: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.2s;
+            margin-left: 20px;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--color-highlight);
+        }
+
+        body.dark-mode .theme-toggle-btn {
+            border-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        /* --- Content and Typography --- */
+        h2 {
+            font-size: 1.8rem;
+            color: var(--color-accent);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+             font-size: 1.4rem;
+             color: var(--color-accent);
+             margin-top: 25px;
+             margin-bottom: 10px;
+             border-left: 5px solid var(--color-accent);
+             padding-left: 10px;
+         }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* --- Table Styles --- */
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            text-align: left;
+            border: 1px solid var(--color-border);
+        }
+
+        .content-table thead tr {
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .content-table th,
+        .content-table td {
+            padding: 12px 15px;
+            border: 1px solid var(--color-border);
+        }
+
+        .content-table tbody tr {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .content-table tbody tr:nth-of-type(even) {
+            background-color: var(--color-code-bg);
+        }
+
+        .content-table tbody tr:hover {
+            background-color: var(--color-highlight);
+        }
+        
+        /* --- Interactive Section (Use for live demos) --- */
+        .interactive-section {
+            border: 2px dashed var(--color-accent);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: center;
+            background-color: var(--color-highlight);
+        }
+
+        .run-button {
+            padding: 10px 20px;
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: opacity 0.2s;
+            margin-top: 10px;
+        }
+        
+        .run-button:hover {
+            opacity: 0.85;
+        }
+
+        #result-output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid var(--color-accent);
+            background-color: var(--color-bg-body);
+            font-size: 1rem;
+            min-height: 40px;
+            text-align: left;
+            white-space: pre-wrap;
+            font-family: var(--font-family-code);
+        }
+
+        /* --- Code Presentation --- */
+        .code-block {
+            background-color: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        pre {
+            font-family: var(--font-family-code);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-text);
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        /* Highlighting for Code Syntax */
+        .keyword {
+            font-weight: bold;
+            color: var(--color-accent);
+        }
+        .string {
+            color: #C20000;
+        }
+        body.dark-mode .string {
+            color: #90EE90;
+        }
+        .comment {
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        /* Highlight box for notes/examples */
+        .explanation-box {
+            padding: 15px;
+            border-left: 5px solid var(--color-accent);
+            background-color: var(--color-highlight);
+            border-radius: 0 6px 6px 0;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+        
+        /* Media Query for Mobile */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Declaring and Initializing Strings</h1>
+            <button id="theme-toggle" aria-label="Toggle Light/Dark Mode" class="theme-toggle-btn">
+                <span class="icon">☀️</span> <span class="text">Dark Mode</span>
+            </button>
+        </header>
+
+        <section id="introduction">
+            <h2>String Fundamentals: Quotes</h2>
+            <p>A <b>String</b> is a sequence of characters used to represent text. In JavaScript, you can use three different types of delimiters to define a string:</p>
+            <div class="explanation-box">
+                <b>Note:</b> Single quotes (<b>'</b>) and double quotes (<b>"</b>) behave identically. The primary reason to use one over the other is to avoid conflicts when the string itself contains the other type of quote (e.g., <b>'"It's easy"'</b>).
+            </div>
+        </section>
+
+        <section id="standard-declaration">
+            <h3>Standard String Declaration (Single and Double Quotes)</h3>
+            <p>We use the <b>let</b> keyword to declare a variable and assign a string literal to it using either single or double quotes.</p>
+            
+            <div class="code-block">
+                <pre>
+<span class="comment">// Declaring and initializing strings</span>
+<span class="keyword">let</span> myString = <span class="string">"Hello, world!"</span>;
+<span class="keyword">let</span> anotherString = <span class="string">'JavaScript is fun! Keep thinking outside the box!'</span>;</pre>
+            </div>
+        </section>
+        
+        <section id="template-literals">
+            <h2>Template Literals (Backticks)</h2>
+            <p>Template literals, enclosed by <i>backticks</i> (`` ` ``), offer powerful features that standard strings lack, particularly support for multiline strings and variable substitution (interpolation).</p>
+
+            <div class="code-block">
+                <pre>
+<span class="comment">// Multi-line string with template literal</span>
+<span class="keyword">let</span> multiLineString = <span class="string">`This is a string</span>
+<span class="string">that</span>
+<span class="string">spans multiple</span>
+<span class="string">lines</span>
+<span class="string">in JavaScript.`</span>;
+
+<span class="keyword">console</span>.<span class="keyword">log</span>(multiLineString);</pre>
+            </div>
+            
+        </section>
+        
+        <section id="string-methods">
+            <h2>Essential String Methods</h2>
+            <p>Strings come with built-in methods (functions) to easily manipulate and format text. Three of the most common are <b>toUpperCase()</b>, <b>toLowerCase()</b>, and <b>trim()</b>. They do not change the original string but return a new, modified string.</p>
+
+            <div class="code-block">
+                <pre>
+<span class="keyword">let</span> text = <span class="string">"   hello, world!   "</span>;
+
+<span class="keyword">console</span>.<span class="keyword">log</span>(text.toUpperCase()); <span class="comment">// HELLO, WORLD!</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(text.toLowerCase()); <span class="comment">// hello, world!</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(text.trim());        <span class="comment">// hello, world! (Whitespace removed)</span></pre>
+            </div>
+        </section>
+
+        <section id="live-demo">
+            <h2>Live Method Demonstration</h2>
+            <p>Use the buttons below to see the effect of each string method on the sample text: <code>"   javaScript   "</code></p>
+
+            <div class="interactive-section">
+                <span id="demo-text">"   javaScript   "</span>
+                <br>
+                <button onclick="runUpper()" class="run-button">To UpperCase</button>
+                <button onclick="runLower()" class="run-button">To LowerCase</button>
+                <button onclick="runTrim()" class="run-button">Trim Whitespace</button>
+                
+                <div id="result-output">Click a button to see the result...</div>
+            </div>
+        </section>
+
+        <section id="comparison-table">
+            <h2>String Quote Comparison</h2>
+            <p>A summary of the differences between the three main ways to define a string in modern JavaScript.</p>
+            
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Syntax</th>
+                        <th>Multliline Support</th>
+                        <th>Variable Interpolation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Double Quotes (`"`)</b></td>
+                        <td>No (requires `<b>\n</b>`)</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><b>Single Quotes (`'`)</b></td>
+                        <td>No (requires `<b>\n</b>`)</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><b>Backticks (`` ` ``)</b></td>
+                        <td><b>Yes</b> (natively)</td>
+                        <td><b>Yes</b> (using <b>${variable}</b>)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="key-takeaways">
+            <h2>Key Takeaways</h2>
+            <ul>
+                <li>Strings are immutable: Methods like <b>toUpperCase()</b> return a new string; they do not modify the original variable.</li>
+                <li>Template literals (backticks) are the modern standard for text that spans multiple lines or requires dynamic values.</li>
+                <li>Always use <b>trim()</b> when handling user input to remove accidental leading or trailing spaces.</li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>Keep Thinking Outside The Box: A Beginners Guide To JavaScript For ADHD Brains</p>
+        </footer>
+    </div>
+    
+    <script>
+        const sampleText = "   javaScript   ";
+        const resultOutput = document.getElementById('result-output');
+
+        function runUpper() {
+            const upper = sampleText.toUpperCase();
+            resultOutput.innerText = `toUpperCase() result: "${upper}"`;
+        }
+
+        function runLower() {
+            const lower = sampleText.toLowerCase();
+            resultOutput.innerText = `toLowerCase() result: "${lower}"`;
+        }
+
+        function runTrim() {
+            const trimmed = sampleText.trim();
+            resultOutput.innerText = `trim() result: "${trimmed}"`;
+        }
+
+        // --- Theme Toggle Logic (Leave this section as is) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial state of the output box
+            resultOutput.innerText = 'Click a button to see the result...';
+
+            const toggleButton = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('theme');
+
+            function updateToggleText(theme) {
+                const isDark = theme === 'dark-mode';
+                toggleButton.querySelector('.icon').textContent = isDark ? '🌙' : '☀️';
+                toggleButton.querySelector('.text').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            }
+
+            if (currentTheme) {
+                body.classList.add(currentTheme);
+                updateToggleText(currentTheme);
+            } else {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    body.classList.add('dark-mode');
+                    updateToggleText('dark-mode');
+                } else {
+                    updateToggleText('light-mode');
+                }
+            }
+
+            toggleButton.addEventListener('click', () => {
+                const isCurrentlyDark = body.classList.contains('dark-mode');
+                
+                if (isCurrentlyDark) {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light-mode');
+                    updateToggleText('light-mode');
+                } else {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                    updateToggleText('dark-mode');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

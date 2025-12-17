@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 21: Concatenation and Formatting</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&family=Roboto:wght@400&family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+   
+    <style>
+        /* --- CSS Variables for High Contrast (Light Mode Default) --- */
+        :root {
+            --color-bg-body: #FFFFFF;
+            --color-text: #1A1A1A;
+            --color-accent: #000000;
+            --color-border: #DDDDDD;
+            --color-code-bg: #F5F5F5;
+            --color-highlight: #EEEEEE;
+            --font-family-main: 'Merriweather','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family-code: 'Inconsolata','Consolas', 'Courier New', monospace;
+        }
+
+        /* --- Dark Mode Overrides --- */
+        body.dark-mode {
+            --color-bg-body: #121212;
+            --color-text: #E0E0E0;
+            --color-accent: #FAFAFA;
+            --color-border: #333333;
+            --color-code-bg: #222222;
+            --color-highlight: #333333;
+        }
+
+        /* --- Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg-body);
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-bg-body);
+            padding: 30px;
+        }
+
+        /* --- Header and Toggle --- */
+        header {
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--color-accent);
+        }
+
+        .theme-toggle-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--color-accent);
+            background-color: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.2s;
+            margin-left: 20px;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--color-highlight);
+        }
+
+        body.dark-mode .theme-toggle-btn {
+            border-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        /* --- Content and Typography --- */
+        h2 {
+            font-size: 1.8rem;
+            color: var(--color-accent);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+             font-size: 1.4rem;
+             color: var(--color-accent);
+             margin-top: 25px;
+             margin-bottom: 10px;
+             border-left: 5px solid var(--color-accent);
+             padding-left: 10px;
+         }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* --- Table Styles --- */
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            text-align: left;
+            border: 1px solid var(--color-border);
+        }
+
+        .content-table thead tr {
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .content-table th,
+        .content-table td {
+            padding: 12px 15px;
+            border: 1px solid var(--color-border);
+        }
+
+        .content-table tbody tr {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .content-table tbody tr:nth-of-type(even) {
+            background-color: var(--color-code-bg);
+        }
+
+        .content-table tbody tr:hover {
+            background-color: var(--color-highlight);
+        }
+        
+        /* --- Interactive Section (Use for live demos) --- */
+        .interactive-section {
+            border: 2px dashed var(--color-accent);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: center;
+            background-color: var(--color-highlight);
+        }
+        
+        .name-input-box {
+            padding: 8px;
+            border: 1px solid var(--color-accent);
+            border-radius: 4px;
+            font-size: 1rem;
+            margin: 5px;
+            width: 120px;
+            text-align: center;
+        }
+
+        .run-button {
+            padding: 10px 20px;
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: opacity 0.2s;
+            margin-top: 10px;
+        }
+        
+        .run-button:hover {
+            opacity: 0.85;
+        }
+
+        #result-output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid var(--color-accent);
+            background-color: var(--color-bg-body);
+            font-size: 1rem;
+            min-height: 40px;
+            text-align: left;
+            white-space: pre-wrap;
+            font-family: var(--font-family-code);
+        }
+
+        /* --- Code Presentation --- */
+        .code-block {
+            background-color: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        pre {
+            font-family: var(--font-family-code);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-text);
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        /* Highlighting for Code Syntax */
+        .keyword {
+            font-weight: bold;
+            color: var(--color-accent);
+        }
+        .string {
+            color: #C20000;
+        }
+        body.dark-mode .string {
+            color: #90EE90;
+        }
+        .comment {
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        /* Highlight box for notes/examples */
+        .explanation-box {
+            padding: 15px;
+            border-left: 5px solid var(--color-accent);
+            background-color: var(--color-highlight);
+            border-radius: 0 6px 6px 0;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+        
+        /* Media Query for Mobile */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Concatenation and Formatting</h1>
+            <button id="theme-toggle" aria-label="Toggle Light/Dark Mode" class="theme-toggle-btn">
+                <span class="icon">☀️</span> <span class="text">Dark Mode</span>
+            </button>
+        </header>
+
+        <section id="introduction">
+            <h2>Combining Strings: The Basics</h2>
+            <p><b>Concatenation</b> is the process of joining two or more strings together to form a single, larger string. The simplest way to achieve this in JavaScript is using the arithmetic addition operator (<b>+</b>).</p>
+            <div class="explanation-box">
+               <b>Type Coercion:</b> Remember that when the <b>+</b> operator encounters at least one string, it treats all operands as strings. For example, <b>10 + " apples"</b> results in the string "<b>10 apples</b>".
+            </div>
+        </section>
+
+        <section id="plus-operator-demo">
+            <h3>Method 1: Concatenation with `+`</h3>
+            <p>This method explicitly joins variables and fixed strings (like the space character <b>" "</b>) piece by piece.</p>
+            
+            <div class="code-block">
+                <pre>
+<span class="comment">// Concatenation with +</span>
+<span class="keyword">const</span> firstName = <span class="string">"John"</span>;
+<span class="keyword">const</span> lastName = <span class="string">"Doe"</span>;
+<span class="keyword">const</span> fullName = firstName <span style="font-weight: bold;">+</span> <span class="string">" "</span> <span style="font-weight: bold;">+</span> lastName;
+<span class="keyword">console</span>.<span class="keyword">log</span>(fullName); <span class="comment">// Output: John Doe</span></pre>
+            </div>
+        </section>
+
+        <section id="template-literals-demo">
+            <h2>Method 2: Template Literals (String Interpolation)</h2>
+            <p>The modern, preferred way to insert variables into strings is using template literals (backticks `` ` ``) and interpolation using <b>${variable}</b>. This is much cleaner and easier to read.</p>
+            
+            <div class="code-block">
+                <pre>
+<span class="comment">// Using concatenation</span>
+<span class="keyword">const</span> age = <span class="number">25</span>;
+<span class="keyword">const</span> message1 = <span class="string">"I am "</span> + age + <span class="string">" years old."</span>;
+
+<span class="comment">// Output: I am 25 years old</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(message1);
+
+<span class="comment">// Using template literals</span>
+<span class="keyword">const</span> name = <span class="string">"Alice"</span>;
+<span class="keyword">const</span> greeting = <span class="string">`Hello, ${name}!`</span>; <span class="comment">// Variable embedded directly</span>
+
+<span class="comment">// Output: Hello, Alice!</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(greeting);</pre>
+            </div>
+            
+        </section>
+
+        <section id="formatting-code">
+            <h2>Advanced Formatting and Manipulation</h2>
+            <p>Formatting often involves methods like trimming whitespace and standardizing case. The following example demonstrates chainable methods like <b>split()</b>, <b>map(</b>, <b>toUpperCase()</b>, and <b>join()</b> to correct the capitalization of a name.</p>
+            
+            <div class="code-block">
+                <pre>
+<span class="keyword">function</span> formatFullName(<span style="color: blue;">firstName</span>, <span style="color: green;">lastName</span>) {
+
+  <span class="comment">// Concatenation and splitting the words (e.g., ["jOhn", "dOE"])</span>
+  <span class="keyword">const</span> fullName = firstName + <span class="string">" "</span> + lastName;
+  
+  <span class="keyword">return</span> fullName
+    <span style="color: #008000;">.split</span>(<span class="string">" "</span>)
+    <span style="color: #008000;">.map</span>(word <span style="font-weight: bold;">=></span> word.<span style="color: #008000;">charAt</span>(<span class="number">0</span>).<span style="color: #008000;">toUpperCase</span>() <span style="comment">// Capitalize first letter</span>
+      + word.<span style="color: #008000;">slice</span>(<span class="number">1</span>).<span style="color: #008000;">toLowerCase</span>()) <span class="comment">// Lowercase the rest</span>
+    <span style="color: #008000;">.join</span>(<span class="string">" "</span>);
+}
+
+<span class="comment">// Example Usage:</span>
+<span class="keyword">let</span> formatted = formatFullName(<span class="string">"aLiCe"</span>, <span class="string">"sMiTh"</span>); <span class="comment">// Output: Alice Smith</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(formatted);
+</pre>
+            </div>
+        </section>
+
+        <section id="live-demo">
+            <h2>Live Formatting Demonstration</h2>
+            <p>Enter a name in non-standard case (e.g., `jOHN dOe`) to see the formatting function work.</p>
+
+            <div class="interactive-section">
+                <label for="input-first">First Name:</label>
+                <input type="text" id="input-first" class="name-input-box" value="aliCE">
+                <label for="input-last">Last Name:</label>
+                <input type="text" id="input-last" class="name-input-box" value="smITh">
+                
+                <button onclick="runFormattingDemo()" class="run-button">
+                    Format Name
+                </button>
+                
+                <div id="result-output">Click the button to see the result...</div>
+            </div>
+        </section>
+
+        <section id="comparison-table">
+            <h2>Concatenation Method Comparison</h2>
+            <p>Choosing between the older `+` operator and modern template literals for string construction.</p>
+            
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>`+` Operator</th>
+                        <th>Template Literals (`` ` ``)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Variable Inclusion</b></td>
+                        <td>Requires breaking the string: <b>"Hi " + name</b></td>
+                        <td><b>Simple Interpolation:</b> <b>`Hi ${name}`</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Multiline Support</b></td>
+                        <td>Requires <b>\n</b> or the <b>+</b> operator on new lines.</td>
+                        <td><b>Natively supported.</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Readability</b></td>
+                        <td>Poor for complex strings.</td>
+                        <td><b>Excellent</b> (variables stand out).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="key-takeaways">
+            <h2>Key Takeaways</h2>
+            <ul>
+                <li>Always use <i>template literals</i> (backticks) for constructing strings that contain variables or expressions.</li>
+                <li>The <b>+</b> operator is functional but verbose and prone to errors when mixing many variables.</li>
+                <li>String formatting in JavaScript often involves chaining built-in methods like <b>trim()</b>, <b>toLowerCase()</b>, and <b>toUpperCase()</b>.</li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>Keep Thinking Outside The Box: A Beginners Guide To JavaScript For ADHD Brains</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Core formatting function for the demo
+        function formatFullName(firstName, lastName) {
+            const fullName = firstName + " " + lastName;
+            
+            return fullName
+                .split(" ")
+                .map(word => {
+                    if (!word) return ""; // Handle potential multiple spaces
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                })
+                .join(" ");
+        }
+
+        function runFormattingDemo() {
+            const firstNameInput = document.getElementById('input-first').value;
+            const lastNameInput = document.getElementById('input-last').value;
+            const resultOutput = document.getElementById('result-output');
+
+            const firstName = firstNameInput.trim();
+            const lastName = lastNameInput.trim();
+
+            if (!firstName || !lastName) {
+                resultOutput.innerText = "Error: Please enter both first and last names.";
+                return;
+            }
+
+            const formattedName = formatFullName(firstName, lastName);
+            
+            let output = `Input First Name: "${firstNameInput}"\n`;
+            output += `Input Last Name: "${lastNameInput}"\n`;
+            output += `-------------------------------------------------\n`;
+            output += `Formatted Name: ${formattedName}\n`;
+            output += `Uppercase Version: ${formattedName.toUpperCase()}`;
+
+            resultOutput.innerText = output;
+        }
+
+        // --- Theme Toggle Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('theme');
+
+            function updateToggleText(theme) {
+                const isDark = theme === 'dark-mode';
+                toggleButton.querySelector('.icon').textContent = isDark ? '🌙' : '☀️';
+                toggleButton.querySelector('.text').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            }
+
+            if (currentTheme) {
+                body.classList.add(currentTheme);
+                updateToggleText(currentTheme);
+            } else {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    body.classList.add('dark-mode');
+                    updateToggleText('dark-mode');
+                } else {
+                    updateToggleText('light-mode');
+                }
+            }
+
+            toggleButton.addEventListener('click', () => {
+                const isCurrentlyDark = body.classList.contains('dark-mode');
+                
+                if (isCurrentlyDark) {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light-mode');
+                    updateToggleText('light-mode');
+                } else {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                    updateToggleText('dark-mode');
+                }
+            });
+            
+            // Set initial state of the output box
+            document.getElementById('result-output').innerText = 'Enter names and click "Format Name" to test.';
+        });
+    </script>
+</body>
+</html>
