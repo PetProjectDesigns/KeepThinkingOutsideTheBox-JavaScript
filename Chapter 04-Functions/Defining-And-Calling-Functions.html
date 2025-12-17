@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defining and Calling Functions</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&family=Roboto:wght@400&family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+
+
+    <style>
+        /* --- CSS Variables for High Contrast (Light Mode Default) --- */
+        :root {
+            --color-bg-body: #FFFFFF;
+            --color-text: #1A1A1A;
+            --color-accent: #000000;
+            --color-border: #DDDDDD;
+            --color-code-bg: #F5F5F5;
+            --color-highlight: #EEEEEE;
+            --font-family-main: 'Merriweather','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family-code: 'Inconsolata','Consolas', 'Courier New', monospace;
+        }
+
+        /* --- Dark Mode Overrides --- */
+        body.dark-mode {
+            --color-bg-body: #121212;
+            --color-text: #E0E0E0;
+            --color-accent: #FAFAFA;
+            --color-border: #333333;
+            --color-code-bg: #222222;
+            --color-highlight: #333333;
+        }
+
+        /* --- Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg-body);
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-bg-body);
+            padding: 30px;
+        }
+
+        /* --- Header and Toggle --- */
+        header {
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--color-accent);
+        }
+
+        .theme-toggle-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--color-accent);
+            background-color: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.2s;
+            margin-left: 20px;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--color-highlight);
+        }
+
+        body.dark-mode .theme-toggle-btn {
+            border-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        /* --- Content and Typography --- */
+        h2 {
+            font-size: 1.8rem;
+            color: var(--color-accent);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+             font-size: 1.4rem;
+             color: var(--color-accent);
+             margin-top: 25px;
+             margin-bottom: 10px;
+             border-left: 5px solid var(--color-accent);
+             padding-left: 10px;
+         }
+
+        p {
+            margin-bottom: 15px;
+        }
+        
+        /* --- Interactive Section --- */
+        .interactive-section {
+            border: 2px dashed var(--color-accent);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: center;
+            background-color: var(--color-highlight);
+        }
+
+        .input-box {
+            padding: 8px;
+            border: 1px solid var(--color-accent);
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-right: 10px;
+            width: 150px;
+            text-align: center;
+        }
+
+        .run-button {
+            padding: 10px 20px;
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: opacity 0.2s;
+            margin-top: 10px;
+        }
+        
+        .run-button:hover {
+            opacity: 0.85;
+        }
+
+        #result-output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid var(--color-accent);
+            background-color: var(--color-bg-body);
+            font-weight: bold;
+            font-size: 1.2rem;
+            min-height: 40px;
+            text-align: center;
+        }
+
+        /* --- Code Presentation --- */
+        .code-block {
+            background-color: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        pre {
+            font-family: var(--font-family-code);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-text);
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        code {
+            font-family: var(--font-family-code);
+            background-color: var(--color-code-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .keyword {
+            font-weight: bold;
+            color: var(--color-accent);
+        }
+        .string {
+            color: #C20000;
+        }
+        body.dark-mode .string {
+            color: #90EE90;
+        }
+        .comment {
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        .explanation-box {
+            padding: 15px;
+            border-left: 5px solid var(--color-accent);
+            background-color: var(--color-highlight);
+            border-radius: 0 6px 6px 0;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+        
+        /* Media Query for Mobile */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Defining and Calling Functions</h1>
+            <button id="theme-toggle" aria-label="Toggle Light/Dark Mode" class="theme-toggle-btn">
+                <span class="icon">☀️</span> <span class="text">Dark Mode</span>
+            </button>
+        </header>
+
+        <section id="introduction">
+            <p>A <b>function</b> is a reusable block of code that performs a specific task. They are the backbone of organized, efficient programming because they allow you to write a piece of logic once and execute it many times from different parts of your program. Functions make code modular and easier to debug.</p>
+            <div class="explanation-box">
+                <b>Concept:</b> Functions are like recipes. The recipe itself is the <b>definition</b>, it describes the steps. Cooking the meal using the recipe is <b>calling</b> the function. You can call the same recipe (function) multiple times.
+            </div>
+        </section>
+
+        <section id="definition">
+            <h2>Part 1: Defining the Function</h2>
+            <p>A function definition tells the computer what the function is named, what data it needs (<b>parameters</b>), and what code it should execute.</p>
+            
+            <div class="code-block">
+                <pre>
+<span class="keyword">function</span> <span style="color: blue;">greet</span>(<span style="color: green;">name</span>) <span class="comment">// function keyword, name, and parameter(s)</span>
+{
+    <span class="keyword">console</span>.<span class="keyword">log</span>(<span class="string">'Hello, '</span> + <span style="color: green;">name</span> + <span class="string">'!'</span>);
+}
+
+<span class="comment">// The function is defined, but nothing has happened yet.</span></pre>
+            </div>
+            
+            <h3>Key Terms:</h3>
+            <ul>
+                <li><b>function Keyword:</b> Tells JavaScript you are creating a function.</li>
+                <li><b>Name (`greet`):</b> How you will refer to and call the function later.</li>
+                <li><b>Parameter (`name`):</b> A variable listed in the parentheses that holds the data required to run the function.</li>
+            </ul>
+        </section>
+
+        <section id="calling">
+            <h2>Part 2: Calling the Function</h2>
+            <p>To make the function run its code, you must call it by its name, followed by parentheses containing the specific values (arguments) you want to pass in.</p>
+            
+            <div class="code-block">
+                <pre>
+<span style="color: blue;">greet</span>(<span class="string">'Alice'</span>); <span class="comment">// Calling the function with the argument 'Alice'</span>
+<span style="color: blue;">greet</span>(<span class="string">'Bob'</span>);   <span class="comment">// Calling it again with a different argument</span>
+
+<span class="comment">// Outputs: </span>
+<span class="comment">// Hello, Alice!</span>
+<span class="comment">// Hello, Bob!</span></pre>
+            </div>
+            
+            <h3>Arguments vs. Parameters:</h3>
+            <p>When you define the function, you list <b>parameters</b> (<b>name</b>). When you call the function, you provide <b>arguments</b> (<b>Alice</b>, <b>Bob</b>), which are the actual values the function uses.</p>
+             
+        </section>
+
+        <section id="demonstration">
+            <h2>Live Demonstration: The Greeting Generator</h2>
+            <p>Enter any name below and click "Greet" to execute the <b>greet(name)</b> function with your input as the argument.</p>
+
+            <div class="interactive-section">
+                <label for="user-name">Enter Name:</label>
+                <input type="text" id="user-name" class="input-box" value="Programmer">
+                
+                <button onclick="runGreetFunction()" class="run-button">
+                    Greet
+                </button>
+                
+                <div id="result-output">
+                    </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Keep Thinking Outside The Box: A Beginners Guide To JavaScript For ADHD Brains</p>
+        </footer>
+    </div>
+    
+    <script>
+        // The defined function
+        function greet(name) {
+            return 'Hello, ' + name + '!';
+        }
+
+        // Function called by the button (Demonstration)
+        function runGreetFunction() {
+            const nameInput = document.getElementById('user-name');
+            const name = nameInput.value || 'Friend'; // Use 'Friend' if input is empty
+            const resultOutput = document.getElementById('result-output');
+
+            // Calling the function
+            const greeting = greet(name);
+
+            resultOutput.innerText = greeting;
+        }
+
+        // Theme Toggle Logic 
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('theme');
+
+            function updateToggleText(theme) {
+                const isDark = theme === 'dark-mode';
+                toggleButton.querySelector('.icon').textContent = isDark ? '🌙' : '☀️';
+                toggleButton.querySelector('.text').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            }
+
+            if (currentTheme) {
+                body.classList.add(currentTheme);
+                updateToggleText(currentTheme);
+            } else {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    body.classList.add('dark-mode');
+                    updateToggleText('dark-mode');
+                } else {
+                    updateToggleText('light-mode');
+                }
+            }
+
+            toggleButton.addEventListener('click', () => {
+                const isCurrentlyDark = body.classList.contains('dark-mode');
+                
+                if (isCurrentlyDark) {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light-mode');
+                    updateToggleText('light-mode');
+                } else {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                    updateToggleText('dark-mode');
+                }
+            });
+            
+            // Run the function once on load
+            runGreetFunction();
+        });
+    </script>
+</body>
+</html>

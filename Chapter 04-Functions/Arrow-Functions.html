@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Functions</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&family=Roboto:wght@400&family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Variables for High Contrast (Light Mode Default) --- */
+        :root {
+            --color-bg-body: #FFFFFF;
+            --color-text: #1A1A1A;
+            --color-accent: #000000;
+            --color-border: #DDDDDD;
+            --color-code-bg: #F5F5F5;
+            --color-highlight: #EEEEEE;
+            --color-success: #008000;
+            --color-font-success: #005500;
+            --font-family-main: 'Merriweather','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family-code: 'Inconsolata','Consolas', 'Courier New', monospace;
+        }
+
+        /* --- Dark Mode Overrides --- */
+        body.dark-mode {
+            --color-bg-body: #121212;
+            --color-text: #E0E0E0;
+            --color-accent: #FAFAFA;
+            --color-border: #333333;
+            --color-code-bg: #222222;
+            --color-highlight: #333333;
+            --color-success: #00AA00;
+            --color-font-success: #8FBC8F;
+        }
+
+        /* --- Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg-body);
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-bg-body);
+            padding: 30px;
+        }
+
+        /* --- Header and Toggle --- */
+        header {
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--color-accent);
+        }
+
+        .theme-toggle-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--color-accent);
+            background-color: transparent;
+            color: var(--color-text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.2s;
+            margin-left: 20px;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--color-highlight);
+        }
+
+        /* --- Content and Typography --- */
+        h2 {
+            font-size: 1.8rem;
+            color: var(--color-accent);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+             font-size: 1.4rem;
+             color: var(--color-accent);
+             margin-top: 25px;
+             margin-bottom: 10px;
+             border-left: 5px solid var(--color-accent);
+             padding-left: 10px;
+         }
+
+        p {
+            margin-bottom: 15px;
+        }
+        
+        /* --- Interactive Section --- */
+        .interactive-section {
+            border: 2px dashed var(--color-accent);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: center;
+            background-color: var(--color-highlight);
+        }
+
+        .input-box {
+            padding: 8px;
+            border: 1px solid var(--color-accent);
+            border-radius: 4px;
+            font-size: 1rem;
+            margin: 5px;
+            width: 80px;
+            text-align: center;
+        }
+        
+        .name-input-box {
+            width: 150px;
+        }
+
+        .run-button {
+            padding: 10px 20px;
+            background-color: var(--color-accent);
+            color: var(--color-bg-body);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: opacity 0.2s;
+            margin-top: 10px;
+        }
+        
+        .run-button:hover {
+            opacity: 0.85;
+        }
+
+        #result-output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid var(--color-accent);
+            background-color: var(--color-bg-body);
+            font-weight: bold;
+            font-size: 1.2rem;
+            min-height: 40px;
+            text-align: center;
+            color: var(--color-font-success);
+            background-color: var(--color-highlight);
+        }
+
+        /* --- Code Presentation --- */
+        .code-block {
+            background-color: var(--color-code-bg);
+            border: 1px solid var(--color-border);
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        pre {
+            font-family: var(--font-family-code);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-text);
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        code {
+            font-family: var(--font-family-code);
+            background-color: var(--color-code-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .keyword {
+            font-weight: bold;
+            color: var(--color-accent);
+        }
+        .string {
+            color: #C20000;
+        }
+        body.dark-mode .string {
+            color: #90EE90;
+        }
+        .comment {
+            opacity: 0.6;
+            font-style: italic;
+        }
+        .arrow {
+            color: #FF4500;
+            font-weight: bolder;
+        }
+
+        .explanation-box {
+            padding: 15px;
+            border-left: 5px solid var(--color-accent);
+            background-color: var(--color-highlight);
+            border-radius: 0 6px 6px 0;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+        
+        /* Media Query for Mobile */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Arrow Functions (`=>`)</h1>
+            <button id="theme-toggle" aria-label="Toggle Light/Dark Mode" class="theme-toggle-btn">
+                <span class="icon">☀️</span> <span class="text">Dark Mode</span>
+            </button>
+        </header>
+
+        <section id="introduction">
+            <p>Arrow functions provide a simpler and shorter syntax for defining functions, especially when they only perform a single action. They are defined using the <b>fat arrow</b> (<b>=></b>) notation, making your code more readable and concise.</p>
+            <div class="explanation-box">
+                </b>Standard Function:</b> <b>function add(a, b) { return a + b; }</b> <br>
+                </b>Arrow Function:</b> <b>const add = (a, b) => a + b;</b>
+            </div>
+             
+        </section>
+
+        <section id="multi-line-example">
+            <h2>The Basic Multi-Line Arrow Function</h2>
+            <p>For functions that have multiple statements (like logging to the console and returning a value, or using control flow), you must use curly braces <b>{}</b> and the explicit <b>return</b> keyword.</p>
+            
+            <div class="code-block">
+                <pre>
+<span class="keyword">const</span> greet = (<span style="color: blue;">name</span>) <span class="arrow">=></span> {
+    
+    <span class="keyword">console</span>.<span class="keyword">log</span>(<span class="string">'Hello, '</span> + <span style="color: blue;">name</span> + <span class="string">'!'</span>);
+};
+
+<span class="comment">// Call:</span>
+greet(<span class="string">'Arrow Fan'</span>); <span class="comment">// Outputs: Hello, Arrow Fan!</span></pre>
+            </div>
+            
+            <div class="interactive-section">
+                <label for="greet-name">Enter Name:</label>
+                <input type="text" id="greet-name" class="input-box name-input-box" value="Coder">
+                
+                <button onclick="runGreet()" class="run-button">
+                    Run Greet Function
+                </button>
+                
+                <div id="result-greet-output"></div>
+            </div>
+        </section>
+
+        <section id="single-line-example">
+            <h2>Single-Line Arrow Functions (Implicit Return)</h2>
+            <p>If your function consists of a single `return` statement, you can omit both the curly braces <b>{}</b> and the `return` keyword. The value of the single expression is automatically returned.</p>
+            
+            <div class="code-block">
+                <pre>
+<span class="comment">// Single-line arrow function (no { } and no return keyword)</span>
+<span class="keyword">const</span> add = (<span style="color: blue;">a</span>, <span style="color: green;">b</span>) <span class="arrow">=></span> <span style="color: blue;">a</span> + <span style="color: green;">b</span>;
+
+<span class="comment">// result is 8</span>
+<span class="keyword">let</span> result = add(<span class="number">5</span>, <span class="number">3</span>);
+
+<span class="comment">// Outputs: 8</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(result);</pre>
+            </div>
+            
+            <div class="interactive-section">
+                <label for="num1">Num A:</label>
+                <input type="number" id="num1" class="input-box" value="12">
+                <span style="font-size: 1.5rem; font-weight: bold;">+</span>
+                <label for="num2">Num B:</label>
+                <input type="number" id="num2" class="input-box" value="30">
+                
+                <button onclick="runAdd()" class="run-button">
+                    Run Add Function
+                </button>
+                
+                <div id="result-add-output"></div>
+            </div>
+        </section>
+        
+        <section id="explicit-return-example">
+            <h2>The Explicit Return (Alternative Syntax)</h2>
+            <p>Even if the arrow function is multi-line, if you only have a calculation, you can still use the standard multi-line syntax with the explicit <b>return</b> keyword for clarity.</p>
+            
+            <div class="code-block">
+                <pre>
+<span class="keyword">const</span> multiply = (<span style="color: blue;">a</span>, <span style="color: green;">b</span>) <span class="arrow">=></span> {
+    
+    <span class="keyword">return</span> <span style="color: blue;">a</span> * <span style="color: green;">b</span>;
+};
+
+<span class="comment">// result is 24</span>
+<span class="keyword">let</span> result = multiply(<span class="number">4</span>, <span class="number">6</span>);
+
+<span class="comment">// Outputs: 24</span>
+<span class="keyword">console</span>.<span class="keyword">log</span>(result);</pre>
+            </div>
+            
+            <div class="interactive-section">
+                <label for="num3">Num A:</label>
+                <input type="number" id="num3" class="input-box" value="8">
+                <span style="font-size: 1.5rem; font-weight: bold;">×</span>
+                <label for="num4">Num B:</label>
+                <input type="number" id="num4" class="input-box" value="3">
+                
+                <button onclick="runMultiply()" class="run-button">
+                    Run Multiply Function
+                </button>
+                
+                <div id="result-multiply-output"></div>
+            </div>
+        </section>
+        
+        <section id="key-takeaways">
+            <h2>Arrow Function Rules</h2>
+            <ul>
+                <li><b>Conciseness:</b> Shorter and cleaner than traditional functions.</li>
+                <li><b>Implicit Return:</b> If no curly braces are used, the result of the single expression is automatically returned (e.g., <b>(a, b) => a + b</b>).</li>
+                <li><b>Parameters:</b>
+                    <ul>
+                        <li>If there's only one parameter, the parentheses are optional: <b>name => { ... }</b></li>
+                        <li>If there are zero or multiple parameters, parentheses are required: <b>() => { ... }</b> or <b>(a, b) => { ... }</b></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        
+        <footer>
+          <p>Keep Thinking Outside The Box: A Beginners Guide To JavaScript For ADHD Brains</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Multi-line greet function
+        const greet = (name) => {
+            return `Hello, ${name || 'Friend'}!`; // Added fallback for demo
+        };
+
+        // Single-line add function (Implicit Return)
+        const add = (a, b) => a + b;
+
+        // Multi-line multiply function (Explicit Return)
+        const multiply = (a, b) => {
+            return a * b;
+        };
+        
+        // --- Demonstration Functions ---
+        
+        function runGreet() {
+            const name = document.getElementById('greet-name').value;
+            document.getElementById('result-greet-output').innerText = greet(name);
+        }
+
+        function runAdd() {
+            const numA = Number(document.getElementById('num1').value);
+            const numB = Number(document.getElementById('num2').value);
+            const sum = add(numA, numB);
+            document.getElementById('result-add-output').innerText = `Result (a + b = ${sum}): ${sum}`;
+        }
+        
+        function runMultiply() {
+            const numA = Number(document.getElementById('num3').value);
+            const numB = Number(document.getElementById('num4').value);
+            const product = multiply(numA, numB);
+            document.getElementById('result-multiply-output').innerText = `Result (a * b = ${product}): ${product}`;
+        }
+
+        // --- Theme Toggle Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('theme-toggle');
+            const body = document.body;
+            const currentTheme = localStorage.getItem('theme');
+
+            function updateToggleText(theme) {
+                const isDark = theme === 'dark-mode';
+                toggleButton.querySelector('.icon').textContent = isDark ? '🌙' : '☀️';
+                toggleButton.querySelector('.text').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            }
+
+            if (currentTheme) {
+                body.classList.add(currentTheme);
+                updateToggleText(currentTheme);
+            } else {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    body.classList.add('dark-mode');
+                    updateToggleText('dark-mode');
+                } else {
+                    updateToggleText('light-mode');
+                }
+            }
+
+            toggleButton.addEventListener('click', () => {
+                const isCurrentlyDark = body.classList.contains('dark-mode');
+                
+                if (isCurrentlyDark) {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light-mode');
+                    updateToggleText('light-mode');
+                } else {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                    updateToggleText('dark-mode');
+                }
+            });
+            
+            // Run all functions once on load with default values
+            runGreet();
+            runAdd();
+            runMultiply();
+        });
+    </script>
+</body>
+</html>
