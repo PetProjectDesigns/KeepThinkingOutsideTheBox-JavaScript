@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jest-Style Test Demo</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f4f4f4;
+      text-align: center;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      display: inline-block;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Jest-Style Test Example (Browser Version)</h1>
+  <p>This simulates a simple Jest test using plain JavaScript.</p>
+
+  <div id="result">Running test...</div>
+
+  <script>
+    // Function under test
+    const sum = (a, b) => a + b;
+
+    // Simulated Jest-style test
+    function test(description, callback) {
+      try {
+        callback();
+        document.getElementById('result').textContent =
+          "✔️ " + description + " — Test Passed";
+      } catch (error) {
+        document.getElementById('result').textContent =
+          "❌ " + description + " — Test Failed: " + error.message;
+      }
+    }
+
+    // Simulated expect().toBe()
+    function expect(received) {
+      return {
+        toBe(expected) {
+          if (received !== expected) {
+            throw new Error(`Expected ${expected}, but got ${received}`);
+          }
+        }
+      };
+    }
+
+    // Run the test
+    test("adds 1 + 2 to equal 3", () => {
+      expect(sum(1, 2)).toBe(3);
+    });
+  </script>
+</body>
+</html>

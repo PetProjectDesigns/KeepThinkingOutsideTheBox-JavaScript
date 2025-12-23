@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lodash _.map Interactive Demo</title>
+
+  <!-- Lodash CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f4f4f4;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      display: inline-block;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Lodash _.map Example</h1>
+  <p>This demo uses Lodash to double each number in an array.</p>
+
+  <button id="runBtn">Run Lodash</button>
+
+  <div id="output">Waiting...</div>
+
+  <script>
+    document.getElementById('runBtn').addEventListener('click', function () {
+      let numbers = [1, 2, 3, 4, 5];
+      let doubled = _.map(numbers, function(num) {
+        return num * 2;
+      });
+
+      console.log(doubled); // For learners checking the console
+      document.getElementById('output').textContent =
+        "Doubled numbers: " + JSON.stringify(doubled);
+    });
+  </script>
+</body>
+</html>
