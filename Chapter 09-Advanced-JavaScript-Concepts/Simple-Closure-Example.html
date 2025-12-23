@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Closure Demo</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f4f4f4;
+      text-align: center;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #333;
+      padding: 10px 20px;
+      background: white;
+      display: inline-block;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>JavaScript Closure Example</h1>
+  <p>This demo shows how an inner function can access a variable from its outer function.</p>
+
+  <div id="output">Waiting for closure...</div>
+
+  <script>
+    function outerFunction() {
+      let outerVariable = 'I am outside!';
+
+      function innerFunction() {
+        // Accesses outerVariable
+        console.log(outerVariable);
+        document.getElementById('output').textContent = outerVariable;
+      }
+
+      return innerFunction;
+    }
+
+    let closureFunction = outerFunction();
+
+    // Outputs: I am outside!
+    closureFunction();
+  </script>
+</body>
+</html>

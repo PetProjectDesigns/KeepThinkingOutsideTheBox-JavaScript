@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Async/Await with Real API</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f4f4f4;
+      text-align: center;
+    }
+    #dogImage {
+      margin-top: 20px;
+      max-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Async/Await Fetch Example (Real API)</h1>
+  <p>This demo fetches a random dog image using async/await.</p>
+
+  <button id="loadBtn">Load Dog</button>
+
+  <div>
+    <img id="dogImage" src="" alt="Dog will appear here" />
+  </div>
+
+  <script>
+    async function fetchDog() {
+      try {
+        let response = await fetch('https://dog.ceo/api/breeds/image/random');
+        let data = await response.json();
+
+        // Update the image on the page
+        document.getElementById('dogImage').src = data.message;
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to load dog image.');
+      }
+    }
+
+    document.getElementById('loadBtn').addEventListener('click', fetchDog);
+  </script>
+</body>
+</html>

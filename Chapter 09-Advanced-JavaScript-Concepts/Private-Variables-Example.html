@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Private Variables with Closures</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f4f4f4;
+      text-align: center;
+    }
+    #counterDisplay {
+      margin-top: 20px;
+      font-size: 2rem;
+      padding: 10px 20px;
+      background: white;
+      display: inline-block;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>JavaScript Private Variables (Closure Counter)</h1>
+  <p>This demo shows how a closure can keep a variable private while exposing controlled actions.</p>
+
+  <div id="counterDisplay">0</div>
+
+  <div>
+    <button id="incBtn">Increment</button>
+    <button id="decBtn">Decrement</button>
+  </div>
+
+  <script>
+    function createCounter() {
+      let count = 0; // Private variable
+
+      return {
+        increment: function() {
+          count++;
+          return count;
+        },
+        decrement: function() {
+          count--;
+          return count;
+        }
+      };
+    }
+
+    let counter = createCounter();
+
+    const display = document.getElementById('counterDisplay');
+    const incBtn = document.getElementById('incBtn');
+    const decBtn = document.getElementById('decBtn');
+
+    incBtn.addEventListener('click', function() {
+      display.textContent = counter.increment();
+    });
+
+    decBtn.addEventListener('click', function() {
+      display.textContent = counter.decrement();
+    });
+  </script>
+</body>
+</html>
