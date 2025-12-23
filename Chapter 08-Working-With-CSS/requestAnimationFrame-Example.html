@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>requestAnimationFrame Demo</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      text-align: center;
+      background: #f4f4f4;
+    }
+
+    .box {
+      width: 80px;
+      height: 80px;
+      background: red;
+      margin-top: 40px;
+      transform: translateX(0);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>requestAnimationFrame Animation Example</h1>
+  <p>The red box will slide smoothly to the right using JavaScript animation.</p>
+
+  <div class="box"></div>
+
+  <script>
+    let box = document.querySelector('.box');
+    let position = 0;
+
+    function animate() {
+      position += 1;
+      box.style.transform = `translateX(${position}px)`;
+
+      if (position < 100) {
+        requestAnimationFrame(animate);
+      }
+    }
+
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

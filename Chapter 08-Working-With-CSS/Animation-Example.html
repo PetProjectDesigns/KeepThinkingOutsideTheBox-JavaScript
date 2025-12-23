@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS & JavaScript Animation Demo</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #f4f4f4;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    @keyframes slide {
+      from { transform: translateX(0); }
+      to { transform: translateX(100px); }
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      position: relative;
+      margin: 50px auto;
+      animation: slide 2s infinite alternate;
+      cursor: pointer;
+    }
+
+    p {
+      max-width: 500px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Creating Animations with CSS and JavaScript</h1>
+
+  <p>
+    The red box below is animated in two ways:
+    <strong>CSS animation</strong> makes it slide back and forth automatically,
+    and <strong>JavaScript</strong> moves it to the right when you click it.
+  </p>
+
+  <div class="box"></div>
+
+  <script>
+    const box = document.querySelector('.box');
+
+    function animateBox() {
+      box.style.animation = 'none';
+      box.style.transition = 'transform 2s';
+      box.style.transform = 'translateX(200px)';
+    }
+
+    box.addEventListener('click', animateBox);
+  </script>
+</body>
+</html>

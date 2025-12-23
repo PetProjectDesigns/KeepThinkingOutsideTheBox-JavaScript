@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Media Queries and Resize Events Demo</title>
+
+  <style>
+    /* Base styles for visibility */
+    :root { --bg-wide: white; --bg-narrow: lightblue; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, Arial, sans-serif;
+      background: var(--bg-wide);
+      color: #222;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      max-width: 42rem;
+      width: min(92vw, 42rem);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      backdrop-filter: blur(6px);
+    }
+
+    h1 { margin: 0 0 0.5rem; font-size: 1.4rem; }
+    p { margin: 0.25rem 0; line-height: 1.5; }
+    .meta { margin-top: 0.75rem; font-size: 0.95rem; color: #444; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.5rem;
+      background: #eee;
+      font-variant-numeric: tabular-nums;
+      margin-left: 0.35rem;
+    }
+
+    /* CSS media query */
+    @media (max-width: 600px) {
+      body { background-color: var(--bg-narrow); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card" role="region" aria-label="Media query and resize demo">
+    <h1>Media Queries and Window Resizing Events</h1>
+
+    <p>- CSS media query sets the background to light blue when the viewport is under 600px wide.</p>
+    <p>- JavaScript listens for window resize and sets the background color dynamically, mirroring the same behavior.</p>
+
+    <p class="meta">
+      Current width: <span id="vw" class="badge">—</span>
+      Mode: <span id="mode" class="badge">—</span>
+    </p>
+  </div>
+
+  <script>
+    function handleResize() {
+      if (window.innerWidth < 600) {
+        document.body.style.backgroundColor = 'lightblue';
+      } else {
+        document.body.style.backgroundColor = 'white';
+      }
+
+      const vw = document.getElementById('vw');
+      const mode = document.getElementById('mode');
+
+      if (vw) vw.textContent = `${Math.round(window.innerWidth)}px`;
+      if (mode) mode.textContent =
+        window.innerWidth < 600 ? 'Narrow (<600px)' : 'Wide (≥600px)';
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  </script>
+</body>
+</html>

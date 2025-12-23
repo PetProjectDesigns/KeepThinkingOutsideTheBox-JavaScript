@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resize Background Demo</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: grid;
+      place-items: center;
+      height: 100vh;
+      transition: background-color 0.3s ease;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Resize the window to see the background change</h1>
+
+  <!-- Start Of The JavaScript -->
+  <script>
+    function adjustLayout() {
+      if (window.innerWidth < 600) {
+        document.body.style.backgroundColor = 'lightblue';
+      } else {
+        document.body.style.backgroundColor = 'white';
+      }
+    }
+
+    // Run on load
+    adjustLayout();
+
+    // Run whenever the window is resized
+    window.addEventListener('resize', adjustLayout);
+  </script>
+</body>
+</html>
