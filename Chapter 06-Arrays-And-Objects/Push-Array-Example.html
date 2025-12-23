@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript push() Method Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    .box {
+      background: #ffffff;
+      padding: 15px;
+      margin-bottom: 15px;
+      width: fit-content;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>JavaScript Array push() Demo</h1>
+  <p>This page shows how the <b>push()</b> method adds a new item to an array.</p>
+
+  <div id="output"></div>
+
+  <script>
+    // Declaring an array
+    let fruits = ["apple", "banana"];
+
+    // Using push() to add a new element
+    fruits.push("orange"); // Adds "orange" at the end
+
+    // Checking results
+    const updatedArray = fruits;          // ["apple", "banana", "orange"]
+    const arrayLength = fruits.length;    // now 3
+
+    // Display results on the page
+    const message = `
+      <div class="box"><strong>Updated Array:</strong> ${updatedArray.join(", ")}</div>
+      <div class="box"><strong>New Length:</strong> ${arrayLength}</div>
+    `;
+
+    document.getElementById("output").innerHTML = message;
+
+    // Also log to console (as in your example)
+    console.log(updatedArray);
+    console.log(arrayLength);
+  </script>
+</body>
+</html>

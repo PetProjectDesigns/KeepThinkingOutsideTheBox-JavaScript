@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Object Properties Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    .box {
+      background: #ffffff;
+      padding: 15px;
+      margin-bottom: 15px;
+      width: fit-content;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>JavaScript Object Properties Demo</h1>
+  <p>This page shows how to access, modify, and add properties to an object.</p>
+
+  <div id="output"></div>
+
+  <script>
+    // Creating an object
+    let person = {
+      name: "Alice",
+      age: 25
+    };
+
+    // Accessing properties
+    let nameDot = person.name;  // "Alice"
+    let ageBracket = person["age"];  // 25
+
+    // Modifying properties
+    person.age = 26;  // Update with dot notation
+    person["name"] = "Bob";  // Update with bracket notation
+
+    // Adding a new property
+    person["isStudent"] = true;
+
+    // Build output message
+    const message = `
+      <div class="box"><strong>Original Access:</strong><br>
+        person.name → ${nameDot}<br>
+        person["age"] → ${ageBracket}
+      </div>
+
+      <div class="box"><strong>After Modifications:</strong><br>
+        name → ${person.name}<br>
+        age → ${person.age}
+      </div>
+
+      <div class="box"><strong>After Adding New Property:</strong><br>
+        isStudent → ${person.isStudent}<br>
+        Final Object → ${JSON.stringify(person)}
+      </div>
+    `;
+
+    document.getElementById("output").innerHTML = message;
+
+    // Console logs (as in your example)
+    console.log(person.name);
+    console.log(person["age"]);
+    console.log(person);
+  </script>
+</body>
+</html>
+

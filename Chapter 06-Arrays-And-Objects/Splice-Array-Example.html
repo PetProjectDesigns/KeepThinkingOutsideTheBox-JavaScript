@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript splice() Method Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    .box {
+      background: #ffffff;
+      padding: 15px;
+      margin-bottom: 15px;
+      width: fit-content;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>JavaScript Array splice() Demo</h1>
+  <p>This page shows how the <b>splice()</b> method can remove, insert, and replace items in an array.</p>
+
+  <div id="output"></div>
+
+  <script>
+    // Starting array
+    let fruits = ["apple", "banana", "cherry", "orange"];
+
+    // Step 1: Remove 1 element at index 1
+    fruits.splice(1, 1); 
+    // Now: ["apple", "cherry", "orange"]
+
+    // Step 2: Insert 2 new elements at index 2
+    fruits.splice(2, 0, "kiwi", "mango");
+    // Now: ["apple", "cherry", "kiwi", "mango", "orange"]
+
+    // Step 3: Replace 1 element at index 0
+    fruits.splice(0, 1, "pear");
+    // Now: ["pear", "cherry", "kiwi", "mango", "orange"]
+
+    // Display results on the page
+    const message = `
+      <div class="box"><strong>Final Array:</strong> ${fruits.join(", ")}</div>
+      <div class="box"><strong>Explanation:</strong><br>
+        • Removed "banana"<br>
+        • Inserted "kiwi" and "mango"<br>
+        • Replaced "apple" with "pear"
+      </div>
+    `;
+
+    document.getElementById("output").innerHTML = message;
+
+    // Console logs (as in your example)
+    console.log(fruits);
+  </script>
+</body>
+</html>

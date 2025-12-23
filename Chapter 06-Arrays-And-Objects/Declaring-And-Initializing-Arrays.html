@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Array Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    .box {
+      background: #ffffff;
+      padding: 15px;
+      margin-bottom: 15px;
+      width: fit-content;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>JavaScript Arrays Demo</h1>
+  <p>This page shows how to declare an array and access its elements.</p>
+
+  <div id="output"></div>
+
+  <script>
+    // Declaring and initializing an array
+    let fruits = ['Apple', 'Banana', 'Cherry'];
+
+    // Accessing array elements
+    let firstFruit = fruits[0]; // 'Apple'
+    let secondFruit = fruits[1]; // 'Banana'
+
+    // Display results on the page
+    const message = `
+      <div class="box"><strong>Array:</strong> ${fruits.join(', ')}</div>
+      <div class="box"><strong>First fruit:</strong> ${firstFruit}</div>
+      <div class="box"><strong>Second fruit:</strong> ${secondFruit}</div>
+    `;
+
+    document.getElementById("output").innerHTML = message;
+  </script>
+</body>
+</html>

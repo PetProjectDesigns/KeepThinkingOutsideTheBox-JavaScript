@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array & Object Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    .box {
+      background: #ffffff;
+      padding: 15px;
+      margin-bottom: 15px;
+      width: fit-content;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>JavaScript Arrays & Objects Demo</h1>
+  <p>This example shows how arrays and objects can be modified in JavaScript.</p>
+
+  <div id="output"></div>
+
+  <script>
+    // Array of fruits
+    let fruits = ['Apple', 'Banana', 'Cherry'];
+    fruits.push('Date');  // Add "Date"
+    let firstFruit = fruits.shift(); // Remove first element ("Apple")
+
+    // Object representing a person
+    let person = {
+      name: 'John',
+      age: 30,
+      occupation: 'Engineer',
+      greet: function() {
+        return 'Hello, my name is ' + this.name;
+      }
+    };
+
+    // Modify object properties
+    person.age = 31;
+    let greeting = person.greet();
+
+    // Display results on the page
+    const message = `
+      <div class="box">
+        <strong>Updated Fruits Array:</strong> ${fruits.join(', ')}<br>
+        <strong>Removed First Fruit:</strong> ${firstFruit}
+      </div>
+
+      <div class="box">
+        <strong>Person Object After Updates:</strong><br>
+        Name: ${person.name}<br>
+        Age: ${person.age}<br>
+        Occupation: ${person.occupation}
+      </div>
+
+      <div class="box">
+        <strong>Greeting Message:</strong> ${greeting}
+      </div>
+    `;
+
+    document.getElementById("output").innerHTML = message;
+
+    // Console logs (same as your example)
+    console.log(fruits);
+    console.log(firstFruit);
+    console.log(person);
+    console.log(greeting);
+  </script>
+</body>
+</html>
