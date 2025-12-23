@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Listener Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Adding & Removing Event Listeners</h1>
+
+  <button id="myButton">Click Me</button>
+  <button id="removeListener">Remove Click Listener</button>
+
+  <script>
+    // Step 1: Select the button
+    let button = document.getElementById('myButton');
+
+    // Step 2: Create a named function for the event
+    function showAlert() {
+      alert('Button clicked!');
+    }
+
+    // Step 3: Add the event listener
+    button.addEventListener('click', showAlert);
+
+    // Step 4: Select the "remove" button
+    let removeBtn = document.getElementById('removeListener');
+
+    // Step 5: Remove the event listener when the second button is clicked
+    removeBtn.addEventListener('click', function() {
+      button.removeEventListener('click', showAlert);
+      alert('Click listener removed!');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>getElementsByClassName Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Menu</h1>
+
+  <!-- These elements all share the same class -->
+  <p class="menu-item">Home</p>
+  <p class="menu-item">About</p>
+  <p class="menu-item">Services</p>
+  <p class="menu-item">Contact</p>
+
+  <script>
+    // Step 1: Select all elements with the class "menu-item"
+    // This returns an HTMLCollection (like an array of elements)
+    let items = document.getElementsByClassName("menu-item");
+
+    // Step 2: Loop through each element in the collection
+    for (let item of items) {
+      // Step 3: Change the text color of each item
+      item.style.color = "blue";
+    }
+  </script>
+</body>
+</html>

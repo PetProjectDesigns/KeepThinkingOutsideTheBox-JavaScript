@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Input Event Listener Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    input {
+      padding: 10px;
+      font-size: 18px;
+      width: 250px;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 20px;
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Input Event Listener Example</h1>
+
+  <!-- The input field the user will type into -->
+  <input id="myInput" type="text" placeholder="Type something...">
+
+  <!-- A place to show feedback -->
+  <p id="message"></p>
+
+  <script>
+    // Step 1: Select the input field
+    let inputField = document.getElementById('myInput');
+
+    // Step 2: Add an input event listener
+    inputField.addEventListener('input', function() {
+      // Step 3: Update the page so the user sees something happen
+      document.getElementById('message').textContent =
+        "Input changed: " + inputField.value;
+    });
+  </script>
+</body>
+</html>

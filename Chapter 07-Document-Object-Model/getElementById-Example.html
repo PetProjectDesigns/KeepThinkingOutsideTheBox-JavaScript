@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>getElementById Demo</title>
+</head>
+
+<body>
+  <!-- This is the element we will target with JavaScript -->
+  <h1 id="mainTitle">Original Title</h1>
+
+  <script>
+    // Step 1: Find the element with the ID "mainTitle"
+    // document.getElementById(...) searches the page for an element with that ID
+    let title = document.getElementById("mainTitle");
+
+    // Step 2: Change the text inside that element
+    // textContent replaces whatever text is currently inside the <h1>
+    title.textContent = "Hello World!";
+  </script>
+</body>
+</html>

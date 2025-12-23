@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Submit Event Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 20px;
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Submit Event Listener Example</h1>
+
+  <!-- The form -->
+  <form id="myForm">
+    <label>
+      Your Name:
+      <input type="text" id="nameInput" required>
+    </label>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- A place to show feedback -->
+  <p id="message"></p>
+
+  <script>
+    // Step 1: Select the form
+    let form = document.getElementById("myForm");
+
+    // Step 2: Add a submit event listener
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // Stops the default page reload
+
+      // Step 3: Show visible feedback
+      document.getElementById("message").textContent =
+        "Form submitted! Hello, " + document.getElementById("nameInput").value;
+    });
+  </script>
+</body>
+</html>

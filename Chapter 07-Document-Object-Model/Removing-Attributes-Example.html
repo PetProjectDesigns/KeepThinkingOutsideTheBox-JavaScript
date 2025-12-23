@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Remove Attribute Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    a {
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Removing Attributes with JavaScript</h1>
+
+  <!-- This link opens in a new tab because of target="_blank" -->
+  <a href="https://example.com" target="_blank">Visit Example.com</a>
+
+  <script>
+    // Step 1: Select the first <a> element on the page
+    let link = document.querySelector("a");
+
+    // Step 2: Remove the 'target' attribute
+    // This means the link will no longer open in a new tab
+    link.removeAttribute("target");
+  </script>
+</body>
+</html>

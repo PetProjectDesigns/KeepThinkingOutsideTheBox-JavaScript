@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modify Attributes Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    img {
+      width: 200px;
+      border: 2px solid #ccc;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Image Attribute Update Example</h1>
+
+  <!-- Original image -->
+  <img src="old-picture.jpg" alt="Old description">
+
+  <script>
+    // Step 1: Select the first <img> element on the page
+    let image = document.querySelector("img");
+
+    // Step 2: Update the image source
+    // setAttribute() changes the value of any HTML attribute
+    image.setAttribute("src", "new-picture.jpg");
+
+    // Step 3: Update the alt text
+    // You can also modify attributes directly as properties
+    image.alt = "A new description";
+  </script>
+</body>
+</html>

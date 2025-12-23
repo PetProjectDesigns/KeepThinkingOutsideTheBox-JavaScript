@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>querySelector Demo</title>
+  <style>
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      margin: 5px;
+      cursor: pointer;
+      background-color: gray;
+      color: white;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Button Demo</h1>
+
+  <!-- Buttons with classes -->
+  <button class="btn primary">Primary Button</button>
+  <button class="btn secondary">Secondary Button</button>
+
+  <script>
+    // Step 1: Select the FIRST element that matches the CSS selector ".btn.primary"
+    // querySelector() returns the first match only
+    let firstButton = document.querySelector(".btn.primary");
+
+    // Step 2: Change its background color
+    firstButton.style.backgroundColor = "green";
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>textContent vs innerHTML Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 id="title">Original Heading</h1>
+
+  <script>
+    // Step 1: Select the element with the ID "title"
+    let heading = document.getElementById("title");
+
+    // Step 2: Replace the text ONLY (no HTML allowed)
+    // This will show plain text exactly as written
+    heading.textContent = "Welcome, Learners!";
+
+    // Step 3: Insert HTML formatting
+    // innerHTML allows tags like <em>, <strong>, <span>, etc.
+    heading.innerHTML = "<em>Welcome, Learners!</em>";
+  </script>
+</body>
+</html>
